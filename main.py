@@ -11,6 +11,8 @@ def main():
             AggregateController.redirect(input("Enter command:\n"))
     except TerminationException:
         pass
+    except Exception as e:
+        print("Unknown exception: ", e)
     finally:
         print("System terminated")
         

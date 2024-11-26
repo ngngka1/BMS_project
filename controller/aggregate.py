@@ -1,7 +1,7 @@
 
 from controller.attendee import AttendeeController
 from controller.banquet import BanquetController
-from controller.meals import MealsController
+from controller.meal import MealController
 from controller.staff import StaffController
 
 class AggregateController:
@@ -9,7 +9,7 @@ class AggregateController:
     def init(db_connection):
         AttendeeController.init(db_connection)
         BanquetController.init(db_connection)
-        MealsController.init(db_connection)
+        MealController.init(db_connection)
         StaffController.init(db_connection)
     
     def __init__(self, db_connection):
@@ -27,4 +27,4 @@ class AggregateController:
         elif table == "staff":
             StaffController.handle_input(args)
         elif table == "meals":
-            MealsController.handle_input(args)
+            MealController.handle_input(args)

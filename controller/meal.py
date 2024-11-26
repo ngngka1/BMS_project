@@ -1,12 +1,12 @@
 import sqlite3
-from model.meals import MealsModel
-from view.meals import MealsView
-class MealsController:
+from model.meal import MealModel
+from view.meal import MealView
+class MealController:
     __view = None
     __model = None
     def init(db_connection: sqlite3.Connection):
-        __model = MealsModel(db_connection)
-        __view = MealsView()
+        __model = MealModel(db_connection)
+        __view = MealView()
         
     @staticmethod
     def handle_input(*args):
