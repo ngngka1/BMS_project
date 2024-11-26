@@ -1,0 +1,2 @@
+class StaffModel:
+    pass

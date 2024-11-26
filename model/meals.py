@@ -1,0 +1,2 @@
+class MealsModel:
+    pass
