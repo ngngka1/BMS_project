@@ -32,8 +32,10 @@ class AttendeeController:
     @staticmethod
     def register(*args):
         AttendeeController.__view.results = AttendeeController.__model.insert(*args)
-        
         AttendeeController.__view.display()
+        
+    # @staticmethod
+    # def 
         
 
         

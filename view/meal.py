@@ -1,3 +1,3 @@
 from view.base import BaseView
-class MealsView(BaseView):
+class MealView(BaseView):
     pass
