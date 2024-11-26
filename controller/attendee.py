@@ -2,6 +2,7 @@ import sqlite3
 from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
 from utils.exceptions.InadequateArgumentsException import InadequateArgumentsException
+from utils.miscellaneous.smart_input import smart_input
 class AttendeeController:
     __view: AttendeeView = None
     __model: AttendeeModel = None
@@ -26,20 +27,17 @@ class AttendeeController:
 
     @staticmethod
     def login(*args):
-        kwargs = {
+        kwargs = smart_input(*args, {
             "email_address": None,
             "password": None
-        }
-        for i, key in enumerate(kwargs.keys()):
-            if (i == len(args)):
-                raise InadequateArgumentsException(f"Missing Argument: {key}")
-            kwargs[key] = args[i]
-        AttendeeController.__view.results = AttendeeController.__model.login(kwargs)
+        })
+        
+        AttendeeController.__view.results = AttendeeController.__model.login(**kwargs)
         AttendeeController.__view.display()
 
     @staticmethod
     def update(*args):
-        kwargs = {
+        kwargs = smart_input(*args, {
             "email_address": None,
             "password": None,
             "first_name": None,
@@ -48,17 +46,13 @@ class AttendeeController:
             "phone_no": None,
             "address": None,
             "organization": None,
-        }
-        for i, key in enumerate(kwargs.keys()):
-            if (i == len(args)):
-                raise InadequateArgumentsException(f"Missing Argument: {key}")
-            kwargs[key] = args[i]
-        AttendeeController.__view.results = AttendeeController.__model.update(*args)
+        })
+        AttendeeController.__view.results = AttendeeController.__model.update(**kwargs)
         AttendeeController.__view.display()
         
     @staticmethod
     def register(*args):
-        kwargs = {
+        kwargs = smart_input(*args, {
             "email_address": None,
             "password": None,
             "first_name": None,
@@ -67,10 +61,6 @@ class AttendeeController:
             "phone_no": None,
             "address": None,
             "organization": None,
-        }
-        for i, key in enumerate(kwargs.keys()):
-            if (i == len(args)):
-                raise InadequateArgumentsException(f"Missing Argument: {key}")
-            kwargs[key] = args[i]
+        })
         AttendeeController.__view.results = AttendeeController.__model.insert(**kwargs)
         AttendeeController.__view.display()

@@ -1,7 +1,7 @@
 import sqlite3
 from utils.auth.decorators import admin_required
 from utils.exceptions.ForbiddenException import ForbiddenException
-from settings import start_session, check_admin_mode, get_session_data
+from settings import start_session
 class AttendeeModel:
     __db_connection = None
     
@@ -17,27 +17,10 @@ class AttendeeModel:
         AttendeeModel.__db_connection.commit()
         
     @staticmethod
-    def validate_session():
-        if (check_admin_mode()):
-            return
-        if get_session_data("email_address") is None or get_session_data("password") is None:
-            raise ForbiddenException("Please login first!")
-        cursor = AttendeeModel.__db_connection.cursor()
-        try:
-            with open("./sql_scripts/attendee/query_user_by_credentials.sql", "r") as f:
-                sql_command = f.read()
-        except:
-            raise Exception("Failed to read sql script")
-        cursor.execute(sql_command.format(**get_session_data()))
-        result = cursor.fetchone()
-        if result is None:
-            return ["Invalid session"]
-        
-    @staticmethod
     def login(**kwargs):
         cursor = AttendeeModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/attendee/query_user_by_credentials.sql", "r") as f:
+            with open("./sql_scripts/auth/query_user_by_credentials.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise Exception("Failed to read sql script")
@@ -81,7 +64,6 @@ class AttendeeModel:
         
     @admin_required
     def get_information():
-        pass
         return ["to be implemented"]
         
         

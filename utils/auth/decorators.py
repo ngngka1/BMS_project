@@ -1,4 +1,4 @@
-from settings import check_admin_mode
+from settings import check_admin_mode, validate_session
 from exceptions.ForbiddenException import ForbiddenException
 
 def admin_required(func):
@@ -8,10 +8,8 @@ def admin_required(func):
         func(*args, **kwargs)
     return wrapper
 
-def authenticate(func):
+def authenticated_required(func):
     def wrapper(*args, **kwargs):
-        
-        # if not SESSION_DATA.get("email_address") or not SESSION_DATA.get("password"):
-        #     raise ForbiddenException("Please login first!")
+        validate_session()
         func(*args, **kwargs)
     return wrapper
