@@ -6,23 +6,23 @@ class BanquetModel:
         # if not Banquet.__db_connection is None:
         #     raise Exception('Database connection already exists')
         BanquetModel.__db_connection = db_connection
-        BanquetModel.__db_connection.execute('''
-            CREATE TABLE Banquet (
-                BIN INT NOT NULL CHECK(BIN > 0),
-                Banquet_Name VARCHAR(20) NOT NULL CHECK(Banquet_Name ~ '^[A-Za-z]+$');
-                Available BOOLEAN NOT NULL,
-                Quota INT NOT NULL CHECK(Quota > 0),
-                Address VARCHAR(255) NOT NULL,
-                Location VARCHAR(6) NOT NULL,
-                PRIMARY KEY(BIN)
-            )
-        ''')
+        cursor = BanquetModel.__db_connection.cursor()
+        try:
+            with open("./sql_scripts/banquet/create_table.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command)
         BanquetModel.__db_connection.commit()
     
     def insert(*args):
-        BanquetModel.__db_connection.execute(f'''
-            INSERT INTO Banquet VALUES ({args})
-        ''')
+        cursor = BanquetModel.__db_connection.cursor()
+        try:
+            with open("./sql_scripts/banquet/insert.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command.format(*args)) # **this part needs to format keyword arguments
         BanquetModel.__db_connection.commit()
         
         

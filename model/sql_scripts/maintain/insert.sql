@@ -1,0 +1,1 @@
+INSERT INTO Maintain VALUES ({args})

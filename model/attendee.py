@@ -8,19 +8,12 @@ class AttendeeModel:
         #     raise Exception('Database connection already exists')
         AttendeeModel.__db_connection = db_connection
         cursor = AttendeeModel.__db_connection.cursor()
-        cursor.execute('''
-            CREATE TABLE Attendee (
-                Email_Address VARCHAR(50) NOT NULL CHECK(Email_Address LIKE "%@%"),
-                Email_Password VARCHAR(20) NOT NULL,
-                First_Name VARCHAR(20) NOT NULL CHECK(First_Name ~ '^[A-Za-z]+$'),
-                Last_Name VARCHAR(20) NOT NULL CHECK(Last_Name ~ '^[A-Za-z]+$'),
-                Type CHAR(7) NOT NULL CHECK(Type IN ("Staff", "Student", "Alumni", "Guest")),
-                Phone_No CHAR(8) NOT NULL CHECK(LENGTH(Phone_No) = 8 AND Phone_No NOT LIKE '% '),
-                Address VARCHAR(255) NOT NULL,
-                Organization CHAR(6) NOT NULL CHECK("PolyU", "SPEED", "HKCC", "Others"),
-                PRIMARY KEY(Email_Address)    
-            )
-        ''')
+        try:
+            with open("./sql_scripts/attendee/create_table.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command)
         AttendeeModel.__db_connection.commit()
     
     def insert(*args):

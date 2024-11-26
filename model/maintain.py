@@ -1,27 +1,28 @@
 import sqlite3
-class Maintain:
+class MaintainModel:
     __db_connection = None
     
     def __init__(self, db_connection: sqlite3.Connection):
         # if not Maintain.__db_connection is None:
         #     raise Exception('Database connection already exists')
-        Maintain.__db_connection = db_connection
-        Maintain.__db_connection.execute('''
-            CREATE TABLE Maintain (
-                BIN INT NOT NULL CHECK(BIN > 0),
-                Staff_No CHAR(8) NOT NULL,
-                Present BOOLEAN NOT NULL,
-                PRIMARY KEY (BIN, Staff_No),
-                FOREIGN KEY (BIN) REFERENCES Banquet(BIN),
-                FOREIGN KEY (Staff_No) REFERENCES Staff(Staff_No)
-            )
-        ''')
-        Maintain.__db_connection.commit()
+        MaintainModel.__db_connection = db_connection
+        cursor = MaintainModel.__db_connection.cursor()
+        try:
+            with open("./sql_scripts/maintain/create_table.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command)
+        MaintainModel.__db_connection.commit()
     
     def insert(*args):
-        Maintain.__db_connection.execute(f'''
-            INSERT INTO Maintain VALUES ({args})
-        ''')
-        Maintain.__db_connection.commit()
+        cursor = MaintainModel.__db_connection.cursor()
+        try:
+            with open("./sql_scripts/maintain/insert.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command.format(*args))
+        MaintainModel.__db_connection.commit()
         
         
