@@ -1,4 +1,4 @@
-CREATE TABLE Staff (
+CREATE TABLE IF NOT EXISTS Staff (
     Staff_No CHAR(8) NOT NULL,
     First_Name VARCHAR(20) NOT NULL,
     Last_Name VARCHAR(20) NOT NULL,

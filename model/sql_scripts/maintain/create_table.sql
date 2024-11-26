@@ -1,4 +1,4 @@
-CREATE TABLE Maintain (
+CREATE TABLE IF NOT EXISTS Maintain (
     BIN INT NOT NULL CHECK(BIN > 0),
     Staff_No CHAR(8) NOT NULL,
     Present BOOLEAN NOT NULL,

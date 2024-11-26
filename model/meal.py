@@ -3,8 +3,6 @@ class MealModel:
     __db_connection = None
     
     def __init__(self, db_connection: sqlite3.Connection):
-        # if not Meal.__db_connection is None:
-        #     raise Exception('Database connection already exists')
         MealModel.__db_connection = db_connection
         cursor = MealModel.__db_connection.cursor()
         try:
@@ -22,5 +20,9 @@ class MealModel:
                 sql_command = f.read()
         except:
             raise Exception("Failed to read sql script")
-        cursor.execute(sql_command.format(*args))
-        MealModel.__db_connection.commit()
+        try:
+            cursor.execute(sql_command.format(*args)) # **this part needs to format keyword arguments
+            MealModel.__db_connection.commit()
+            return ["Meal record created successfully"]
+        except sqlite3.IntegrityError as e:
+            return ["Integerity error: " + e]

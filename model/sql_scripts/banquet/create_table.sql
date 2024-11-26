@@ -1,4 +1,4 @@
-CREATE TABLE Banquet (
+CREATE TABLE IF NOT EXISTS   Banquet (
     BIN INT NOT NULL CHECK(BIN > 0),
     Banquet_Name VARCHAR(20) NOT NULL CHECK(Banquet_Name ~ '^[A-Za-z]+$');
     Available BOOLEAN NOT NULL,

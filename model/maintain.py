@@ -3,8 +3,6 @@ class MaintainModel:
     __db_connection = None
     
     def __init__(self, db_connection: sqlite3.Connection):
-        # if not Maintain.__db_connection is None:
-        #     raise Exception('Database connection already exists')
         MaintainModel.__db_connection = db_connection
         cursor = MaintainModel.__db_connection.cursor()
         try:
@@ -12,6 +10,7 @@ class MaintainModel:
                 sql_command = f.read()
         except:
             raise Exception("Failed to read sql script")
+        
         cursor.execute(sql_command)
         MaintainModel.__db_connection.commit()
     
@@ -22,7 +21,11 @@ class MaintainModel:
                 sql_command = f.read()
         except:
             raise Exception("Failed to read sql script")
-        cursor.execute(sql_command.format(*args))
-        MaintainModel.__db_connection.commit()
+        try:
+            cursor.execute(sql_command.format(*args)) # **this part needs to format keyword arguments
+            MaintainModel.__db_connection.commit()
+            return ["Maintain record created successfully"]
+        except sqlite3.IntegrityError as e:
+            return ["Integerity error: " + e]
         
         
