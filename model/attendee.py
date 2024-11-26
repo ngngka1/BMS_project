@@ -18,17 +18,23 @@ class AttendeeModel:
     
     def insert(*args):
         cursor = AttendeeModel.__db_connection.cursor()
-        cursor.execute(f'''
-            INSERT INTO Attendee VALUES ({args})
-        ''')
+        try:
+            with open("./sql_scripts/attendee/insert.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command.format(*args))
         AttendeeModel.__db_connection.commit()
         return ["Attendee record created successfully"]
         
     def update(*args):
         cursor = AttendeeModel.__db_connection.cursor()
-        cursor.execute(f'''
-            UPDATE Attendee SET {args}
-        ''')
+        try:
+            with open("./sql_scripts/attendee/update.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise Exception("Failed to read sql script")
+        cursor.execute(sql_command.format(*args))
         AttendeeModel.__db_connection.commit()
         return ["Attendee record updated successfully"]
         
