@@ -1,12 +1,12 @@
 import sqlite3
-class Meal:
+class MealModel:
     __db_connection = None
     
     def __init__(self, db_connection: sqlite3.Connection):
         # if not Meal.__db_connection is None:
         #     raise Exception('Database connection already exists')
-        Meal.__db_connection = db_connection
-        Meal.__db_connection.execute('''
+        MealModel.__db_connection = db_connection
+        MealModel.__db_connection.execute('''
             CREATE TABLE Meal (
                 Meal_NO CHAR(3) NOT NULL,
                 BIN INT NOT NULL,
@@ -18,12 +18,10 @@ class Meal:
                 
             )
         ''')
-        Meal.__db_connection.commit()
+        MealModel.__db_connection.commit()
     
     def insert(*args):
-        Meal.__db_connection.execute(f'''
+        MealModel.__db_connection.execute(f'''
             INSERT INTO Meal VALUES ({args})
         ''')
-        Meal.__db_connection.commit()
-        
-        
+        MealModel.__db_connection.commit()

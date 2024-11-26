@@ -1,12 +1,14 @@
 import sqlite3
-class Attendee:
+from utils.auth.decorators import admin_required
+class AttendeeModel:
     __db_connection = None
     
     def __init__(self, db_connection: sqlite3.Connection):
         # if not Attendee.__db_connection is None:
         #     raise Exception('Database connection already exists')
-        Attendee.__db_connection = db_connection
-        Attendee.__db_connection.execute('''
+        AttendeeModel.__db_connection = db_connection
+        cursor = AttendeeModel.__db_connection.cursor()
+        cursor.execute('''
             CREATE TABLE Attendee (
                 Email_Address VARCHAR(50) NOT NULL CHECK(Email_Address LIKE "%@%"),
                 Email_Password VARCHAR(20) NOT NULL,
@@ -20,12 +22,27 @@ class Attendee:
                 
             )
         ''')
-        Attendee.__db_connection.commit()
+        AttendeeModel.__db_connection.commit()
     
     def insert(*args):
-        Attendee.__db_connection.execute(f'''
+        cursor = AttendeeModel.__db_connection.cursor()
+        cursor.execute(f'''
             INSERT INTO Attendee VALUES ({args})
         ''')
-        Attendee.__db_connection.commit()
+        AttendeeModel.__db_connection.commit()
+        return ["Attendee record created successfully"]
+        
+    def update(*args):
+        cursor = AttendeeModel.__db_connection.cursor()
+        cursor.execute(f'''
+            UPDATE Attendee SET {args}
+        ''')
+        AttendeeModel.__db_connection.commit()
+        return ["Attendee record updated successfully"]
+        
+    @admin_required
+    def get_information():
+        pass
+        return ["to be implemented"]
         
         
