@@ -9,13 +9,13 @@ class MealModel:
         MealModel.__db_connection.execute('''
             CREATE TABLE Meal (
                 Meal_NO CHAR(3) NOT NULL,
-                BIN INT NOT NULL,
-                Type CHAR(20) NOT NULL CHECK(Meal_Type IN ("fish", "chicken", "beef", "v")),
-                Phone_No VARCHAR(20) NOT NULL CHECK(Phone_Number LIKE '+% %'),
-                Address VARCHAR(255) NOT NULL,
-                Organization VARCHAR(40) NOT NULL,
-                PRIMARY KEY(Email_Address)
-                
+                BIN INT NOT NULL CHECK(BIN > 0),
+                Type CHAR(20) NOT NULL CHECK(Type IN ("fish", "chicken", "beef", "vegetarian")),
+                Special_Cuisine VARCHAR(20) CHECK(Special_Cuisine ~ '^[A-Za-z]+$'),
+                Dish_Name VARCHAR(20) NOT NULL CHECK(Dish_Name ~ '^[A-Za-z]+$'),
+                Price INT NOT NULL CHECK(Price BETWEEN 100 AND 2000),
+                PRIMARY KEY(Meal_NO, BIN),
+                FOREIGN KEY(BIN) REFERENCES Banquet(BIN)
             )
         ''')
         MealModel.__db_connection.commit()
