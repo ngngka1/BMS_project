@@ -1,28 +1,23 @@
 from settings import check_admin_mode
 class BaseView:
     __ADMIN_MODE = check_admin_mode()
-    __COMMANDS_DESC = {}
-    __ADMIN_COMMANDS_DESC = {}
     __TABLE_NAME = "undefined"
     __ARGUMENTS_PROMPT = {}
     
-    @classmethod
-    def set_commands_description(cls, dic: dict):
+    def set_commands_description(self, dic: dict):
         for key, val in dic.items():
-            if key in cls.__COMMANDS_DESC:
-                print(f"Warning: prompt for command <{key}> overwritten to: {val}")
-            cls.__COMMANDS_DESC[key] = val
+            # if key in self.__COMMANDS_DESC:
+            #     print(f"Warning: prompt for command {key} overwritten to: {val}")
+            self.commands_desc[key] = val
     
-    @classmethod
-    def set_admin_commands_description(cls, dic: dict):
+    def set_admin_commands_description(self, dic: dict):
         for key, val in dic.items():
-            if key in cls.__ADMIN_COMMANDS_DESC:
-                print(f"Warning: prompt for admin command <{key}> overwritten to: {val}")
-            cls.__ADMIN_COMMANDS_DESC[key] = val
+            # if key in self.__ADMIN_COMMANDS_DESC:
+            #     print(f"Warning: prompt for admin command {key} overwritten to: {val}")
+            self.admin_commands_desc[key] = val
             
-    @classmethod
-    def set_table_name(cls, x: str):
-        cls.__TABLE_NAME = x
+    def set_table_name(self, x: str):
+        self.__TABLE_NAME = x
     
     @staticmethod
     def add_argument_prompt(dic: dict):
@@ -39,21 +34,19 @@ class BaseView:
     def get_table_name(cls):
         return cls.__TABLE_NAME
     
-    @classmethod
-    def help(cls):
-        print(f"Commands for manipulating {cls.get_table_name()} table:")
-        for i, key in enumerate(cls.__COMMANDS_DESC.keys()):
-            print(f"{i+1}. {key}: {cls.__COMMANDS_DESC[key]}")
-        if cls.__ADMIN_MODE:
-            for i, key in enumerate(cls.__ADMIN_COMMANDS_DESC.keys()):
-                print(f"{i+1}. {key}: {cls.__ADMIN_COMMANDS_DESC[key]}")
+    def help(self):
+        print(f"Commands for manipulating {self.get_table_name()} table:")
+        for i, key in enumerate(self.commands_desc.keys()):
+            print(f"{i+1}. {key}: {self.commands_desc[key]}")
+        if self.__ADMIN_MODE:
+            for i, key in enumerate(self.admin_commands_desc.keys()):
+                print(f"{i+1}. {key}: {self.admin_commands_desc[key]}")
             
         
     def __init__(self):
         self.results = []
-        
-    def help(self):
-        print("help for the view")
+        self.commands_desc = {}
+        self.admin_commands_desc = {}
         
     def display(self):
         for row in self.results:

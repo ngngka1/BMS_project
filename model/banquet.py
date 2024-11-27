@@ -8,7 +8,7 @@ class BanquetModel:
         BanquetModel.__db_connection = db_connection
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -20,7 +20,7 @@ class BanquetModel:
     def list_all():
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/query_all.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/query_all.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -34,7 +34,7 @@ class BanquetModel:
     def insert(**kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/insert.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -50,7 +50,7 @@ class BanquetModel:
     def update(**kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/update.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/update.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")

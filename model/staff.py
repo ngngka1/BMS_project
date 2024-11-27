@@ -6,7 +6,7 @@ class StaffModel:
         StaffModel.__db_connection = db_connection
         cursor = StaffModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/staff/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/staff/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -16,7 +16,7 @@ class StaffModel:
     def insert(*args):
         cursor = StaffModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/staff/insert.sql", "r") as f:
+            with open("./model/sql_scripts/staff/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")

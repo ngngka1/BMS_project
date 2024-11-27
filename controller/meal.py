@@ -13,3 +13,5 @@ class MealController:
     def handle_input(*args):
         command = args[0]
         args = args[1:]
+        if command == "help":
+            MealController.__view.help()

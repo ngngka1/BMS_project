@@ -6,7 +6,7 @@ class MealModel:
         MealModel.__db_connection = db_connection
         cursor = MealModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/meal/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/meal/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -17,7 +17,7 @@ class MealModel:
     def list_all():
         cursor = MealModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/meal/query_all.sql", "r") as f:
+            with open("./model/sql_scripts/meal/query_all.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -31,7 +31,7 @@ class MealModel:
     def insert(**kwargs):
         cursor = MealModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/meal/insert.sql", "r") as f:
+            with open("./model/sql_scripts/meal/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")

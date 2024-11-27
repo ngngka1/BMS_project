@@ -15,6 +15,8 @@ class BanquetController:
     def handle_input(*args):
         command = args[0]
         args = args[1:]
+        if command == "help":
+            BanquetController.__view.help()
         if command == 'list':
             BanquetController.list_all()
         elif command == "create":

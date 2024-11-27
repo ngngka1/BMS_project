@@ -4,7 +4,7 @@ class ProvideModel:
     def __init__(self, db_connection: sqlite3.Connection):
         ProvideModel.__db_connection = db_connection
         try:
-            with open("./sql_scripts/provide/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/provide/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -16,7 +16,7 @@ class ProvideModel:
     def insert(**kwargs):
         cursor = ProvideModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/provide/insert.sql", "r") as f:
+            with open("./model/sql_scripts/provide/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")

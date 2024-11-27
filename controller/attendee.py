@@ -16,7 +16,10 @@ class AttendeeController:
     def handle_input(*args):
         command = args[0]
         args = args[1:]
-        if command == 'register':
+        print("command:", command)
+        if command == "help":
+            AttendeeController.__view.help()
+        elif command == 'register':
             AttendeeController.register(*args)
         elif command == 'login':
             AttendeeController.login(*args)

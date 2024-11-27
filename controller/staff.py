@@ -13,3 +13,5 @@ class StaffController:
     def handle_input(*args):
         command = args[0]
         args = args[1:]
+        if command == "help":
+            StaffController.__view.help()

@@ -1,8 +1,7 @@
-UPDATE Banquet SET (
-    {bin},
-    {name},
-    {available},
-    {quota},
-    {address},
-    {location}
-)
+UPDATE Banquet SET 
+    name = {name},
+    available = {available},
+    quota = {quota},
+    address = {address},
+    location = {location}
+WHERE bin = {bin}

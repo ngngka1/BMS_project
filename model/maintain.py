@@ -6,7 +6,7 @@ class MaintainModel:
         MaintainModel.__db_connection = db_connection
         cursor = MaintainModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/maintain/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/maintain/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -17,7 +17,7 @@ class MaintainModel:
     def insert(**kwargs):
         cursor = MaintainModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/maintain/insert.sql", "r") as f:
+            with open("./model/sql_scripts/maintain/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
