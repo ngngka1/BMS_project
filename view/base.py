@@ -1,8 +1,10 @@
 from settings import check_admin_mode
 class BaseView:
-    __ADMIN_MODE = check_admin_mode()
-    __TABLE_NAME = "undefined"
     __ARGUMENTS_PROMPT = {}
+    
+    @property
+    def __ADMIN_MODE(self):
+        return check_admin_mode()
     
     def set_commands_description(self, dic: dict):
         for key, val in dic.items():
@@ -17,7 +19,7 @@ class BaseView:
             self.admin_commands_desc[key] = val
             
     def set_table_name(self, x: str):
-        self.__TABLE_NAME = x
+        self.table_name = x
     
     @staticmethod
     def add_argument_prompt(dic: dict):
@@ -30,9 +32,8 @@ class BaseView:
     def get_argument_prompt(argument_name):
         return BaseView.__ARGUMENTS_PROMPT.get(argument_name)
         
-    @classmethod
-    def get_table_name(cls):
-        return cls.__TABLE_NAME
+    def get_table_name(self):
+        return self.table_name
     
     def help(self):
         print(f"Commands for manipulating {self.get_table_name()} table:")
@@ -40,6 +41,8 @@ class BaseView:
             print(f"{i+1}. {key}: {self.commands_desc[key]}")
         if self.__ADMIN_MODE:
             for i, key in enumerate(self.admin_commands_desc.keys()):
+                if (i == 0):
+                    print("\nadmin commands:")
                 print(f"{i+1}. {key}: {self.admin_commands_desc[key]}")
             
         

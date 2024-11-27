@@ -1,6 +1,8 @@
 import sqlite3
 from view.banquet import BanquetView
 from model.banquet import BanquetModel
+from controller.provide import ProvideController
+from controller.maintain import MaintainController
 from utils.miscellaneous.smart_input import smart_input
 
 class BanquetController:
@@ -29,19 +31,23 @@ class BanquetController:
         BanquetController.__view.display()
         
     def create(*args):
-        kwargs = smart_input(*args, {
+        kwargs: dict = smart_input(*args, **{
             "name": None,
             "date_and_time": None,
             "address": None,
             "location": None,
+            "meal_nos": None,
             "staff_no": None,
             "quota": None,
             "available": None,
         })
-        BanquetController.__model.insert(**kwargs)
+        meal_nos = kwargs.pop("meal_nos")
+        bin_id = BanquetController.__model.insert(**kwargs, return_instance=True)
+        ProvideController.create(bin_id, meal_nos)
+        MaintainController.create(None, kwargs["staff_no"], bin_id)
     
     def update(*args):
-        kwargs = smart_input(*args, {
+        kwargs = smart_input(*args, **{
             "email_address": None,
             "password": None
         })

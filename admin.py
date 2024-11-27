@@ -1,4 +1,4 @@
-from settings import enable_admin_mode
+from settings import enable_admin_mode, check_admin_mode
 from main import main as start_app
 
 def main():

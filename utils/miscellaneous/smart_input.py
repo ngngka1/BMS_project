@@ -1,6 +1,6 @@
 from view.base import BaseView
 from utils.exceptions.InadequateArgumentsException import InadequateArgumentsException
-def smart_input(*args, kwargs: dict[str, any]) -> dict[str, any]: # this is not wrong fyi, kwargs is intentional
+def smart_input(*args, **kwargs) -> dict[str, any]: # this is not wrong fyi, kwargs is intentional
     for i, key in enumerate(kwargs.keys()):
         if (i >= len(args)):
             key_name = key.replace('_', ' ')

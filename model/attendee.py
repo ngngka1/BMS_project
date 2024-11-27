@@ -29,7 +29,7 @@ class AttendeeModel:
         if result is None:
             return ["Invalid username or password"]
         else:
-            start_session(kwargs)
+            start_session(**kwargs)
             return ["Login successful"]
     
     @staticmethod

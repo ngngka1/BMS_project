@@ -1,8 +1,8 @@
 INSERT INTO Banquet VALUES (
     {bin},
-    {name},
-    {available},
+    '{name}',
+    '{available}',
     {quota},
-    {address},
-    {location}
+    '{address}',
+    '{location}'
 )

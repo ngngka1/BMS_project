@@ -14,9 +14,8 @@ class AttendeeController:
         
     @staticmethod
     def handle_input(*args):
-        command = args[0]
+        command = args[0].lower()
         args = args[1:]
-        print("command:", command)
         if command == "help":
             AttendeeController.__view.help()
         elif command == 'register':
@@ -33,7 +32,7 @@ class AttendeeController:
 
     @staticmethod
     def login(*args):
-        kwargs = smart_input(*args, {
+        kwargs = smart_input(*args, **{
             "email_address": None,
             "password": None
         })
@@ -43,7 +42,7 @@ class AttendeeController:
 
     @staticmethod
     def update(*args):
-        kwargs = smart_input(*args, {
+        kwargs = smart_input(*args, **{
             "first_name": None,
             "last_name": None,
             "type": None,
@@ -58,7 +57,7 @@ class AttendeeController:
         
     @staticmethod
     def register(*args):
-        kwargs = smart_input(*args, {
+        kwargs = smart_input(*args, **{
             "email_address": None,
             "password": None,
             "first_name": None,
@@ -78,7 +77,7 @@ class AttendeeController:
         
     @staticmethod
     def update_information_by_email(*args):
-        kwargs = smart_input(*args, {
+        kwargs = smart_input(*args, **{
             "email_address": None,
             "first_name": None,
             "last_name": None,

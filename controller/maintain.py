@@ -10,9 +10,9 @@ class MaintainController:
         
     @staticmethod
     def create(*args):
-        kwargs = smart_input(*args, {
+        kwargs = smart_input(*args, **{
             "present": None,
-            "bin": None,
             "staff_no": None,
+            "bin": None,
         })
         MaintainController.__model.insert(**kwargs)

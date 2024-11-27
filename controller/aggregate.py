@@ -21,6 +21,7 @@ class AggregateController:
         
     @staticmethod
     def redirect(input: str):
+        print()
         args = input.split(' ')
         table = args[0].lower() # might as well just make the commands case-insensitive
         if table == "help":

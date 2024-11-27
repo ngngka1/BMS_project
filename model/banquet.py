@@ -31,7 +31,7 @@ class BanquetModel:
         
     @staticmethod
     @admin_required
-    def insert(**kwargs):
+    def insert(return_instance=False, **kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
             with open("./model/sql_scripts/banquet/insert.sql", "r") as f:
@@ -41,6 +41,8 @@ class BanquetModel:
         try:
             cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             BanquetModel.__db_connection.commit()
+            if return_instance:
+                return cursor.lastrowid
             return ["Banquet record created successfully"]
         except sqlite3.IntegrityError as e:
             return ["Integerity error: " + e]
