@@ -42,6 +42,7 @@ class BanquetModel:
             cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             BanquetModel.__db_connection.commit()
             if return_instance:
+                print("cursor.lastrowid: ", cursor.lastrowid)
                 return cursor.lastrowid
             return ["Banquet record created successfully"]
         except sqlite3.IntegrityError as e:

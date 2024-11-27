@@ -8,14 +8,10 @@ class BaseView:
     
     def set_commands_description(self, dic: dict):
         for key, val in dic.items():
-            # if key in self.__COMMANDS_DESC:
-            #     print(f"Warning: prompt for command {key} overwritten to: {val}")
             self.commands_desc[key] = val
     
     def set_admin_commands_description(self, dic: dict):
         for key, val in dic.items():
-            # if key in self.__ADMIN_COMMANDS_DESC:
-            #     print(f"Warning: prompt for admin command {key} overwritten to: {val}")
             self.admin_commands_desc[key] = val
             
     def set_table_name(self, x: str):
