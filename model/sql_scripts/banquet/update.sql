@@ -1,1 +1,8 @@
-UPDATE Banquet SET {args}
+UPDATE Banquet SET (
+    {bin},
+    {name},
+    {available},
+    {quota},
+    {address},
+    {location}
+)

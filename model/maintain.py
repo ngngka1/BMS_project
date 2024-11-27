@@ -9,20 +9,20 @@ class MaintainModel:
             with open("./sql_scripts/maintain/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         
         cursor.execute(sql_command)
         MaintainModel.__db_connection.commit()
     
-    def insert(*args):
+    def insert(**kwargs):
         cursor = MaintainModel.__db_connection.cursor()
         try:
             with open("./sql_scripts/maintain/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         try:
-            cursor.execute(sql_command.format(*args)) # **this part needs to format keyword arguments
+            cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             MaintainModel.__db_connection.commit()
             return ["Maintain record created successfully"]
         except sqlite3.IntegrityError as e:

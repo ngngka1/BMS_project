@@ -1,6 +1,10 @@
 UPDATE Attendee SET (
     {email_address},
-    {password},
+    (
+        SELECT password
+        FROM Attendee
+        WHERE email_address = {email_address}
+    ),
     {first_name},
     {last_name},
     {type},

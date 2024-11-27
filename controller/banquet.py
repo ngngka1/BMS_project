@@ -6,9 +6,10 @@ from utils.miscellaneous.smart_input import smart_input
 class BanquetController:
     __view: BanquetView = None
     __model: BanquetModel = None
+    @staticmethod
     def init(db_connection: sqlite3.Connection):
-        __model = BanquetModel(db_connection)
-        __view = BanquetView()
+        BanquetController.__model = BanquetModel(db_connection)
+        BanquetController.__view = BanquetView()
         
     @staticmethod
     def handle_input(*args):
@@ -31,8 +32,7 @@ class BanquetController:
             "date_and_time": None,
             "address": None,
             "location": None,
-            "contact_staff_first_name": None,
-            "contact_staff_last_name": None,
+            "staff_no": None,
             "quota": None,
             "available": None,
         })

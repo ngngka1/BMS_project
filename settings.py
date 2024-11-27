@@ -41,7 +41,7 @@ def validate_session():
         with open("./model/sql_scripts/auth/query_user_by_credentials.sql", "r") as f:
             sql_command = f.read()
     except:
-        raise Exception("Failed to read sql script")
+        raise OSError("Failed to read sql script")
     cursor.execute(sql_command.format(**get_session_data()))
     result = cursor.fetchone()
     if result is None:

@@ -9,7 +9,7 @@ class StaffModel:
             with open("./sql_scripts/staff/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
         StaffModel.__db_connection.commit()
     
@@ -19,7 +19,7 @@ class StaffModel:
             with open("./sql_scripts/staff/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         try:
             cursor.execute(sql_command.format(*args)) # **this part needs to format keyword arguments
             StaffModel.__db_connection.commit()

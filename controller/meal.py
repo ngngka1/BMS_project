@@ -4,9 +4,10 @@ from view.meal import MealView
 class MealController:
     __view = None
     __model = None
+    @staticmethod
     def init(db_connection: sqlite3.Connection):
-        __model = MealModel(db_connection)
-        __view = MealView()
+        MealController.__model = MealModel(db_connection)
+        MealController.__view = MealView()
         
     @staticmethod
     def handle_input(*args):

@@ -1,1 +1,8 @@
-INSERT INTO Banquet VALUES ({args}) -- {args} needs to be changed later
+INSERT INTO Banquet VALUES (
+    {bin},
+    {name},
+    {available},
+    {quota},
+    {address},
+    {location}
+)

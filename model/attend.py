@@ -8,7 +8,7 @@ class AttendModel:
             with open("./sql_scripts/attend/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor = AttendModel.__db_connection.cursor()
         cursor.execute(sql_command)
         AttendModel.__db_connection.commit()
@@ -18,7 +18,7 @@ class AttendModel:
             with open("./sql_scripts/attend/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor = AttendModel.__db_connection.cursor()
         try:
             cursor.execute(sql_command)

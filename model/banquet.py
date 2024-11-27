@@ -11,7 +11,7 @@ class BanquetModel:
             with open("./sql_scripts/banquet/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
         BanquetModel.__db_connection.commit()
         
@@ -23,7 +23,7 @@ class BanquetModel:
             with open("./sql_scripts/banquet/query_all.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
         results = cursor.fetchall()
         return results
@@ -37,7 +37,7 @@ class BanquetModel:
             with open("./sql_scripts/banquet/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         try:
             cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             BanquetModel.__db_connection.commit()
@@ -53,7 +53,7 @@ class BanquetModel:
             with open("./sql_scripts/banquet/update.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         try:
             cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             BanquetModel.__db_connection.commit()
