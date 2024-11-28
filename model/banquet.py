@@ -8,10 +8,10 @@ class BanquetModel:
         BanquetModel.__db_connection = db_connection
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
         BanquetModel.__db_connection.commit()
         
@@ -20,10 +20,10 @@ class BanquetModel:
     def list_all():
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/query_all.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/query_all.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
         results = cursor.fetchall()
         return results
@@ -31,16 +31,19 @@ class BanquetModel:
         
     @staticmethod
     @admin_required
-    def insert(**kwargs):
+    def insert(return_instance=False, **kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/insert.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         try:
             cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             BanquetModel.__db_connection.commit()
+            if return_instance:
+                print("cursor.lastrowid: ", cursor.lastrowid)
+                return cursor.lastrowid
             return ["Banquet record created successfully"]
         except sqlite3.IntegrityError as e:
             return ["Integerity error: " + e]
@@ -50,10 +53,10 @@ class BanquetModel:
     def update(**kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
-            with open("./sql_scripts/banquet/update.sql", "r") as f:
+            with open("./model/sql_scripts/banquet/update.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         try:
             cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
             BanquetModel.__db_connection.commit()

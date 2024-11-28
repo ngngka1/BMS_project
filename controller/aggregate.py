@@ -21,6 +21,7 @@ class AggregateController:
         
     @staticmethod
     def redirect(input: str):
+        print()
         args = input.split(' ')
         table = args[0].lower() # might as well just make the commands case-insensitive
         if table == "help":
@@ -28,10 +29,10 @@ class AggregateController:
             return
         args = args[1:]
         if table == "attendee":
-            AttendeeController.handle_input(args)
+            AttendeeController.handle_input(*args)
         elif table == "banquet":
-            BanquetController.handle_input(args)
+            BanquetController.handle_input(*args)
         elif table == "staff":
-            StaffController.handle_input(args)
+            StaffController.handle_input(*args)
         elif table == "meals":
-            MealController.handle_input(args)
+            MealController.handle_input(*args)

@@ -1,5 +1,5 @@
 from settings import check_admin_mode, validate_session
-from exceptions.ForbiddenException import ForbiddenException
+from utils.exceptions.ForbiddenException import ForbiddenException
 
 def admin_required(func):
     def wrapper(*args, **kwargs):

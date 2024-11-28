@@ -1,8 +1,6 @@
 CREATE TABLE IF NOT EXISTS Maintain (
-    BIN INT NOT NULL CHECK(BIN > 0),
-    Staff_No CHAR(8) NOT NULL,
-    Present BOOLEAN NOT NULL,
-    PRIMARY KEY (BIN, Staff_No),
-    FOREIGN KEY (BIN) REFERENCES Banquet(BIN),
-    FOREIGN KEY (Staff_No) REFERENCES Staff(Staff_No)
+    present BOOLEAN,
+    FOREIGN KEY (bin) REFERENCES Banquet(bin),
+    FOREIGN KEY (staff_no) REFERENCES Staff(staff_no),
+    PRIMARY KEY (bin, staff_no)
 )

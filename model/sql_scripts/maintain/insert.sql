@@ -1,1 +1,5 @@
-INSERT INTO Maintain VALUES ({args})
+INSERT INTO Maintain VALUES (
+    {present},
+    {bin},
+    {staff_no}
+)

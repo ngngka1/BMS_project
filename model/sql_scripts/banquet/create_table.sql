@@ -1,9 +1,10 @@
-CREATE TABLE IF NOT EXISTS   Banquet (
-    BIN INT NOT NULL CHECK(BIN > 0),
-    Banquet_Name VARCHAR(20) NOT NULL CHECK(Banquet_Name ~ '^[A-Za-z]+$');
-    Available BOOLEAN NOT NULL,
-    Quota INT NOT NULL CHECK(Quota > 0),
-    Address VARCHAR(255) NOT NULL,
-    Location VARCHAR(6) NOT NULL,
-    PRIMARY KEY(BIN)
+CREATE TABLE IF NOT EXISTS Banquet (
+    bin INT,
+    name VARCHAR(20) NOT NULL CHECK(name REGEXP '^[A-Za-z]+$'),
+    available BOOLEAN NOT NULL,
+    quota INT NOT NULL CHECK(quota > 0),
+    address VARCHAR(255) NOT NULL,
+    location VARCHAR(6) NOT NULL,
+    PRIMARY KEY(bin)
 )
+

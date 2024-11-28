@@ -5,20 +5,20 @@ class AttendModel:
     def __init__(self, db_connection: sqlite3.Connection):
         AttendModel.__db_connection = db_connection
         try:
-            with open("./sql_scripts/attend/create_table.sql", "r") as f:
+            with open("./model/sql_scripts/attend/create_table.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor = AttendModel.__db_connection.cursor()
         cursor.execute(sql_command)
         AttendModel.__db_connection.commit()
     
     def insert(*args):
         try:
-            with open("./sql_scripts/attend/insert.sql", "r") as f:
+            with open("./model/sql_scripts/attend/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
-            raise Exception("Failed to read sql script")
+            raise OSError("Failed to read sql script")
         cursor = AttendModel.__db_connection.cursor()
         try:
             cursor.execute(sql_command)

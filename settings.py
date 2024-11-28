@@ -8,16 +8,20 @@ SESSION_DATA = {
 }
 
 def start_db_connection(db_connection: sqlite3.Connection):
+    global SESSION_DATA
     SESSION_DATA["db_connection"] = db_connection
     
 def get_db_connection() -> sqlite3.Connection:
+    global SESSION_DATA
     return SESSION_DATA.get("db_connection")
 
 def start_session(**kwargs):
+    global SESSION_DATA
     SESSION_DATA["email_address"] = kwargs.get("email_address")
     SESSION_DATA["password"] = kwargs.get("password")
     
 def get_session_data(key=None):
+    global SESSION_DATA
     if key: return SESSION_DATA.get(key)
     return {
         "email_address": SESSION_DATA.get("email_address"),
@@ -25,9 +29,11 @@ def get_session_data(key=None):
     }
 
 def check_admin_mode():
+    global SESSION_DATA
     return SESSION_DATA.get("admin_mode")
 
 def enable_admin_mode():
+    global SESSION_DATA
     SESSION_DATA['admin_mode'] = True
 
 
@@ -41,7 +47,7 @@ def validate_session():
         with open("./model/sql_scripts/auth/query_user_by_credentials.sql", "r") as f:
             sql_command = f.read()
     except:
-        raise Exception("Failed to read sql script")
+        raise OSError("Failed to read sql script")
     cursor.execute(sql_command.format(**get_session_data()))
     result = cursor.fetchone()
     if result is None:

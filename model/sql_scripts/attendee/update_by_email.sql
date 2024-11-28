@@ -1,4 +1,5 @@
-UPDATE Attendee SET
+UPDATE Attendee SET 
+    email_address = '{email_address}',
     first_name = '{first_name}',
     last_name = '{last_name}',
     type = '{type}',

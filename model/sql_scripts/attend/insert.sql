@@ -1,1 +1,4 @@
-INSERT INTO Attend VALUES ({args})
+INSERT INTO Attend VALUES (
+    {bin},
+    '{email_address}'
+)

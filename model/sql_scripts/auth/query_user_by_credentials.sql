@@ -1,4 +1,4 @@
 SELECT *
 FROM Attendee
-WHERE Attendee.Email_Address = {email_address}
-AND Attendee.password = {password}
+WHERE Attendee.email_address = '{email_address}'
+AND Attendee.password = '{password}'
