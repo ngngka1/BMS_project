@@ -25,5 +25,3 @@ class AttendModel:
             AttendModel.__db_connection.commit()
         except sqlite3.IntegrityError as e:
             return ["Integerity error: " + e]
-        
-        
