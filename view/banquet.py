@@ -13,7 +13,7 @@ class BanquetView(BaseView):
             "Banquet update <bin> <name> <date_and_time> <address> <location> <meal_nos> <staff_no> <quota> <available>": "update a banquet record"
         })
         self.add_argument_prompt({
-            "date_and_time": 'date and time in the format of "YYYY-MM-DD HH:MM:SS" (e.g. "2024/02/12 19:30:00")',
+            "date_and_time": 'date and time in the format of "YYYY-MM-DD HH:MM:SS" (e.g. "2024-02-12 19:30:00")',
             "meal_nos": 'meal numbers in a list (e.g.: "[1, 4, 7, 2]" if the targeted meals is 1, 2, 4 and 7)',
             "bin": "The banquet identification number",
             "drink_choice": "remarks about drink choices/preference",
