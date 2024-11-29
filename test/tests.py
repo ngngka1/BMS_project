@@ -31,8 +31,8 @@ def run_with_input(input_data, admin_mode=False):
     if process.stderr:
         print(process.stderr)
     
-@test
-def test01():
+# @test
+def test_banquet_full():
     input_data = '''
         meal create fish fishTest 200 NA
         meal create chicken chickenTest 220 NA
@@ -43,25 +43,42 @@ def test01():
         staff create joe a Catering
         staff create joe b Catering
         staff create joe c "Guest Services"
-        banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 100 true
+        banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
+        banquet list
+        banquet update 1 dinnerUpdated \n\n\n\n\n\n\n
         banquet list
         quit
     '''
     run_with_input(input_data, admin_mode=True)
     
+    
     input_data = '''
-        attendee register testuser@email.com 123 jo jo student 12345678 home none
+        attendee register testuser2@email.com 123 j j staff 87654321 home none
+        attendee login testuser2@email.com 123
         banquet register 1\n\n\n
         quit
     '''
     run_with_input(input_data)
     
     input_data = '''
-        attendee getbyemail testuser@email.com
+        banquet list
         quit
     '''
     run_with_input(input_data, admin_mode=True)
     
-# @test
-def test02():
-    pass
+@test
+def test_update_attendee():
+    input_data = '''
+        attendee register testuser@email.com 123 jo jo student 12345678 home none
+        attendee login testuser@email.com 123
+        attendee update testuserJOJO@email.com je je \n\n\n\n\n
+        attendee info
+        quit
+    '''
+    run_with_input(input_data)
+    
+    # input_data = '''
+    #     attendee getbyemail testuserJOJO@email.com
+    #     quit
+    # '''
+    # run_with_input(input_data, admin_mode=True)

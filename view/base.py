@@ -2,8 +2,6 @@ from settings import check_admin_mode
 from tabulate import tabulate
 
 class BaseView:
-    __ARGUMENTS_PROMPT = {}
-    
     @property
     def __ADMIN_MODE(self):
         return check_admin_mode()
@@ -19,16 +17,14 @@ class BaseView:
     def set_table_name(self, x: str):
         self.table_name = x
     
-    @staticmethod
-    def add_argument_prompt(dic: dict):
+    def add_argument_prompt(self, dic: dict):
         for key, val in dic.items():
-            if key in BaseView.__ARGUMENTS_PROMPT:
+            if key in self.arguments_prompt:
                 print(f"Warning: prompt for argument <{key}> overwritten to: {val}")
-            BaseView.__ARGUMENTS_PROMPT[key] = val
+            self.arguments_prompt[key] = val
             
-    @staticmethod
-    def get_argument_prompt(argument_name):
-        return BaseView.__ARGUMENTS_PROMPT.get(argument_name)
+    def get_argument_prompt(self, argument_name):
+        return self.arguments_prompt.get(argument_name)
         
     def get_table_name(self):
         return self.table_name
@@ -48,10 +44,21 @@ class BaseView:
         self.results = {}
         self.commands_desc = {}
         self.admin_commands_desc = {}
+        self.arguments_prompt = {}
         
     def display(self, rows=None):
         if rows:
             self.results = rows
-        if not self.results: print("No matching results!")
+        if not self.results:
+            print("No matching results!")
         else:
-            print(tabulate([dict(row) for row in self.results], headers="keys", tablefmt="grid"))
+            formatted_results = []
+            for row in self.results:
+                formatted_row = {}
+                for key, value in dict(row).items():
+                    if key not in ["available", "present"]: # ye im brute forcing at this point
+                        formatted_row[key] = value
+                    else:
+                        formatted_row[key] = "Yes" if value else "No"
+                formatted_results.append(formatted_row)
+            print(tabulate([row for row in formatted_results], headers="keys", tablefmt="grid"))

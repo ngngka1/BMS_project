@@ -1,3 +1,4 @@
-UPDATE TABLE Maintain SET
-    present = :present
+UPDATE TABLE Maintain SET 
+    {set_statement}
+
 WHERE bin = :bin

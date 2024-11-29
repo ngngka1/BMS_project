@@ -2,7 +2,6 @@ import sqlite3
 from controller.base import BaseController
 from model.meal import MealModel
 from view.meal import MealView
-from utils.miscellaneous.smart_input import smart_input
 from utils.miscellaneous.type_cast import *
 class MealController(BaseController):
     model_class = MealModel
@@ -24,20 +23,11 @@ class MealController(BaseController):
        
     @staticmethod     
     def create(*args):
-        kwargs = smart_input(*args, **{
-            "type": to_string,
-            "dish_name": to_string,
-            "price": to_int,
-            "special_cuisine": to_string,
-        })
-        MealController.model.insert(**args)
-        
-    @staticmethod     
-    def create(*args):
-        kwargs = smart_input(*args, **{
+        kwargs = MealController.smart_input(*args, **{
             "type": to_string,
             "dish_name": to_string,
             "price": to_int,
             "special_cuisine": to_string,
         })
         MealController.model.insert(**kwargs)
+        

@@ -1,7 +1,3 @@
 UPDATE Banquet SET 
-    name = :name,
-    available = :available,
-    quota = :quota,
-    address = :address,
-    location = :location
+    {set_statement}
 WHERE bin = :bin

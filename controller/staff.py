@@ -2,7 +2,6 @@ import sqlite3
 from model.staff import StaffModel
 from view.staff import StaffView
 from controller.base import BaseController
-from utils.miscellaneous.smart_input import smart_input
 from utils.miscellaneous.type_cast import *
 from utils.auth.decorators import admin_required
 
@@ -30,7 +29,7 @@ class StaffController(BaseController):
     @staticmethod
     @admin_required
     def create(*args):
-        kwargs = smart_input(*args, **{
+        kwargs = StaffController.smart_input(*args, **{
             "first_name": to_string,
             "last_name": to_string,
             "department": to_string,
