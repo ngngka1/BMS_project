@@ -2,6 +2,7 @@ import sqlite3
 from utils.auth.decorators import admin_required
 from utils.exceptions.ForbiddenException import ForbiddenException
 from settings import start_session
+from utils.miscellaneous.smart_update_statement import update_statement_by_kwargs
 class AttendeeModel:
     __db_connection = None
     
@@ -55,9 +56,11 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command, kwargs)
+        updating_fields = kwargs.copy()
+        updating_fields.pop("old_email_address")
+        cursor.execute(update_statement_by_kwargs(sql_command, **updating_fields), kwargs)
         AttendeeModel.__db_connection.commit()
-        return ["Attendee record updated successfully"]
+        print("Attendee record updated successfully")
         
     @staticmethod
     @admin_required
@@ -80,7 +83,7 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command, kwargs)
+        cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs)
         print(f"attendee with email={kwargs['email_address']} information updated")
         
         

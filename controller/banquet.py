@@ -28,7 +28,18 @@ class BanquetController(BaseController):
             BanquetController.create(*new_args)
         elif command == "update":
             BanquetController.update(*new_args)
+        elif command == "attend":
+            BanquetController.update_attendence(*new_args)
             
+    @staticmethod
+    @authenticated_required
+    def update_attendence(*args):
+        kwargs = BanquetController.smart_input(*args, **{
+            "bin": to_int,
+        })
+        kwargs["email_address"] = get_session_data("email_address")
+        AttendController.update(kwargs)
+        
     @staticmethod
     @authenticated_required
     def list_all():
@@ -39,9 +50,9 @@ class BanquetController(BaseController):
     def register(*args):
         kwargs = BanquetController.smart_input(*args, **{
             "bin": to_int,
-            "drink_choice": to_string_allow_null,
-            "meal_choice": to_string_allow_null,
-            "remarks": to_string_allow_null,
+            "drink_choice": allow_null_wrapper(to_string),
+            "meal_choice": allow_null_wrapper(to_string),
+            "remarks": allow_null_wrapper(to_string),
         })
         kwargs["email_address"] = get_session_data("email_address")
         if BanquetController.check_available(**kwargs):
@@ -84,14 +95,14 @@ class BanquetController(BaseController):
     def update(*args):
         kwargs = BanquetController.smart_input(*args, **{
             "bin": to_int,
-            "name": to_string,
-            "date_and_time": to_date_string,
-            "address": to_string,
-            "location": to_string,
-            "meal_nos": to_list_from_string,
-            "staff_no": to_int,
-            "quota": to_int,
-            "available": to_boolean,
+            "name": allow_null_wrapper(to_string),
+            "date_and_time": allow_null_wrapper(to_date_string),
+            "address": allow_null_wrapper(to_string),
+            "location": allow_null_wrapper(to_string),
+            "meal_nos": allow_null_wrapper(to_list_from_string),
+            "staff_no": allow_null_wrapper(to_int),
+            "quota": allow_null_wrapper(to_int),
+            "available": allow_null_wrapper(to_boolean),
         })
         BanquetController.model.update(**kwargs)
 

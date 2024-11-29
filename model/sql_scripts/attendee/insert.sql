@@ -1,4 +1,5 @@
 INSERT INTO Attendee VALUES (
+    NULL,
     :email_address,
     :password,
     :first_name,

@@ -1,12 +1,15 @@
 from datetime import datetime
 import re
 
+def allow_null_wrapper(func):
+    def wrapper(x):
+        if not x:
+            return None
+        return func(x)
+    return wrapper
+
 def to_string(x):
     return str(x)
-
-def to_string_allow_null(x):
-    x = str(x)
-    return x if x else None
 
 def to_date_string(x):
     temp = x.split()

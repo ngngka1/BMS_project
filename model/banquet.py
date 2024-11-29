@@ -1,5 +1,6 @@
 import sqlite3
 from utils.auth.decorators import admin_required, authenticated_required
+from utils.miscellaneous.smart_update_statement import update_statement_by_kwargs
 
 class BanquetModel:
     __db_connection = None
@@ -63,5 +64,6 @@ class BanquetModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command, kwargs) # **this part needs to format keyword arguments
+        
+        cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs) # **this part needs to format keyword arguments
         BanquetModel.__db_connection.commit()

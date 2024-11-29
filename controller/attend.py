@@ -9,3 +9,8 @@ class AttendController(BaseController):
     def create(**kwargs):
         AttendController.model.insert(**kwargs)
         
+    @staticmethod
+    @authenticated_required
+    def update(**kwargs):
+        AttendController.model.update(**kwargs)
+        

@@ -4,6 +4,7 @@ from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
 from utils.miscellaneous.type_cast import *
 from settings import get_session_data
+from utils.auth.decorators import admin_required, authenticated_required
 class AttendeeController(BaseController):
     model_class = AttendeeModel
     view_class = AttendeeView
@@ -33,17 +34,19 @@ class AttendeeController(BaseController):
         AttendeeController.model.login(**kwargs)
 
     @staticmethod
+    @authenticated_required
     def update(*args):
         kwargs = AttendeeController.smart_input(*args, **{
-            "first_name": to_string_allow_null,
-            "password": to_string_allow_null,
-            "last_name": to_string_allow_null,
-            "type": to_string_allow_null,
-            "phone_no": to_string_allow_null,
-            "address": to_string_allow_null,
-            "organization": to_string_allow_null,
+            "email_address": allow_null_wrapper(to_string),
+            "first_name": allow_null_wrapper(to_string),
+            "last_name": allow_null_wrapper(to_string),
+            "password": allow_null_wrapper(to_string),
+            "type": allow_null_wrapper(to_string),
+            "phone_no": allow_null_wrapper(to_string),
+            "address": allow_null_wrapper(to_string),
+            "organization": allow_null_wrapper(to_string),
         })
-        kwargs["email_address"] = get_session_data("email_address")
+        kwargs["old_email_address"] = get_session_data("email_address")
         kwargs["password"] = get_session_data("password")
         AttendeeController.model.update(**kwargs)
         
@@ -62,18 +65,20 @@ class AttendeeController(BaseController):
         AttendeeController.model.insert(**kwargs)
         
     @staticmethod
+    @admin_required
     def get_information_by_email(*args):
         AttendeeController.view.display(AttendeeController.model.get_information_by_email(args[0]))
         
     @staticmethod
+    @admin_required
     def update_information_by_email(*args):
         kwargs = AttendeeController.smart_input(*args, **{
-            "email_address": None,
-            "first_name": None,
-            "last_name": None,
-            "type": None,
-            "phone_no": None,
-            "address": None,
-            "organization": None,
+            "email_address": to_string,
+            "first_name": allow_null_wrapper(to_string),
+            "last_name": allow_null_wrapper(to_string),
+            "type": allow_null_wrapper(to_string),
+            "phone_no": allow_null_wrapper(to_string),
+            "address": allow_null_wrapper(to_string),
+            "organization": allow_null_wrapper(to_string),
         })
         AttendeeController.model.update_information_by_email(**kwargs)
