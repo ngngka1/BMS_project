@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS Attend (
     bin INTEGER NOT NULL,
     email_address VARCHAR(255) NOT NULL,
+    present BOOLEAN,
     drink_choice VARCHAR(255),
     meal_choice VARCHAR(255),
     remarks VARCHAR(255),

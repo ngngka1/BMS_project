@@ -56,7 +56,7 @@ def validate_session():
             sql_command = f.read()
     except:
         raise OSError("Failed to read sql script")
-    cursor.execute(sql_command, **get_session_data())
+    cursor.execute(sql_command, get_session_data())
     result = cursor.fetchone()
     if result is None:
         return ["Invalid session"]

@@ -1,7 +1,6 @@
 import sqlite3
 from model.maintain import MaintainModel
 from controller.base import BaseController
-from utils.miscellaneous.smart_input import smart_input
 from utils.miscellaneous.type_cast import *
 class MaintainController(BaseController):
     model_class = MaintainModel

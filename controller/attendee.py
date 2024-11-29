@@ -2,7 +2,6 @@ import sqlite3
 from controller.base import BaseController
 from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
-from utils.miscellaneous.smart_input import smart_input
 from utils.miscellaneous.type_cast import *
 from settings import get_session_data
 class AttendeeController(BaseController):
@@ -27,7 +26,7 @@ class AttendeeController(BaseController):
         
     @staticmethod
     def login(*args):
-        kwargs = smart_input(*args, **{
+        kwargs = AttendeeController.smart_input(*args, **{
             "email_address": to_string,
             "password": to_string
         })
@@ -35,7 +34,7 @@ class AttendeeController(BaseController):
 
     @staticmethod
     def update(*args):
-        kwargs = smart_input(*args, **{
+        kwargs = AttendeeController.smart_input(*args, **{
             "first_name": to_string_allow_null,
             "password": to_string_allow_null,
             "last_name": to_string_allow_null,
@@ -50,7 +49,7 @@ class AttendeeController(BaseController):
         
     @staticmethod
     def register(*args):
-        kwargs = smart_input(*args, **{
+        kwargs = AttendeeController.smart_input(*args, **{
             "email_address": to_string,
             "password": to_string,
             "first_name": to_string,
@@ -68,7 +67,7 @@ class AttendeeController(BaseController):
         
     @staticmethod
     def update_information_by_email(*args):
-        kwargs = smart_input(*args, **{
+        kwargs = AttendeeController.smart_input(*args, **{
             "email_address": None,
             "first_name": None,
             "last_name": None,

@@ -1,8 +1,7 @@
-INSERT INTO Attend VALUES (
-    :bin,
+UPDATE Attend SET (
     :email_address,
-    NULL,
+    :present,
     :drink_choice,
     :meal_choice,
     :remarks
-)
+) WHERE bin = :bin

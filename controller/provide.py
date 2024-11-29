@@ -1,6 +1,5 @@
 import sqlite3
 from model.provide import ProvideModel
-from utils.miscellaneous.smart_input import smart_input
 from controller.base import BaseController
 
 class ProvideController(BaseController):

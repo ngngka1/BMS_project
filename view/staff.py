@@ -11,6 +11,6 @@ class StaffView(BaseView):
             "Staff create <first_name> <last_name> <department>": "create a Staff record",
             "Staff update <first_name> <last_name> <department>": "update a Staff record"
         })
-        BaseView.add_argument_prompt({
+        self.add_argument_prompt({
             "staff_no": "Input the staff no. of the contact staff"
         })

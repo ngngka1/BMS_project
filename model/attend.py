@@ -21,10 +21,8 @@ class AttendModel:
         except:
             raise OSError("Failed to read sql script")
         cursor = AttendModel.__db_connection.cursor()
-        try:
-            cursor.execute(sql_command, kwargs)
-            AttendModel.__db_connection.commit()
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e.args[0]]
+        cursor.execute(sql_command, kwargs)
+        AttendModel.__db_connection.commit()
+        print("banquet registered successfully")
         
         

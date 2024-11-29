@@ -17,6 +17,18 @@ class BanquetModel:
         
     @staticmethod
     @authenticated_required
+    def get_one(bin_id: int):
+        cursor = BanquetModel.__db_connection.cursor()
+        try:
+            with open("./model/sql_scripts/banquet/query_by_bin.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise OSError("Failed to read sql script")
+        cursor.execute(sql_command, {"bin": bin_id})
+        return cursor.fetchone()
+        
+    @staticmethod
+    @authenticated_required
     def list_all():
         cursor = BanquetModel.__db_connection.cursor()
         try:
@@ -43,7 +55,7 @@ class BanquetModel:
             return cursor.lastrowid
         
     @staticmethod
-    @admin_required
+    # @authenticated_required
     def update(**kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
