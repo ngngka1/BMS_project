@@ -1,6 +1,7 @@
 from utils.exceptions.ForbiddenException import ForbiddenException
 import sqlite3
 SESSION_DATA = {
+    "debug_mode": False,
     'admin_mode': False,
     "db_connection": None,
     "email_address": None,
@@ -32,9 +33,16 @@ def check_admin_mode():
     global SESSION_DATA
     return SESSION_DATA.get("admin_mode")
 
+def check_debug_mode():
+    global SESSION_DATA
+    return SESSION_DATA.get("debug_mode")
+
 def enable_admin_mode():
     global SESSION_DATA
     SESSION_DATA['admin_mode'] = True
+    
+def enable_debug_mode():
+    SESSION_DATA["debug_mode"] = True
 
 
 def validate_session():
@@ -48,7 +56,7 @@ def validate_session():
             sql_command = f.read()
     except:
         raise OSError("Failed to read sql script")
-    cursor.execute(sql_command.format(**get_session_data()))
+    cursor.execute(sql_command, **get_session_data())
     result = cursor.fetchone()
     if result is None:
         return ["Invalid session"]

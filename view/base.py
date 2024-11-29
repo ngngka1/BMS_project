@@ -1,4 +1,6 @@
 from settings import check_admin_mode
+from tabulate import tabulate
+
 class BaseView:
     __ARGUMENTS_PROMPT = {}
     
@@ -43,10 +45,13 @@ class BaseView:
             
         
     def __init__(self):
-        self.results = []
+        self.results = {}
         self.commands_desc = {}
         self.admin_commands_desc = {}
         
-    def display(self):
-        for row in self.results:
-            print(row)
+    def display(self, rows=None):
+        if rows:
+            self.results = rows
+        if not self.results: print("No matching results!")
+        else:
+            print(tabulate([dict(row) for row in self.results], headers="keys", tablefmt="grid"))

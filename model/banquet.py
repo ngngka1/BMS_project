@@ -25,28 +25,22 @@ class BanquetModel:
         except:
             raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
-        results = cursor.fetchall()
-        return results
-        
+        return cursor.fetchall()
         
     @staticmethod
     @admin_required
-    def insert(return_instance=False, **kwargs):
+    def insert(return_pk=False, **kwargs):
         cursor = BanquetModel.__db_connection.cursor()
         try:
             with open("./model/sql_scripts/banquet/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
-            BanquetModel.__db_connection.commit()
-            if return_instance:
-                print("cursor.lastrowid: ", cursor.lastrowid)
-                return cursor.lastrowid
-            return ["Banquet record created successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command, kwargs)
+        BanquetModel.__db_connection.commit()
+        print(f"Banquet record with bin {cursor.lastrowid} created successfully")
+        if return_pk:
+            return cursor.lastrowid
         
     @staticmethod
     @admin_required
@@ -57,9 +51,5 @@ class BanquetModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
-            BanquetModel.__db_connection.commit()
-            return ["Banquet record updated successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command, kwargs) # **this part needs to format keyword arguments
+        BanquetModel.__db_connection.commit()

@@ -24,13 +24,13 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command.format(**kwargs))
+        cursor.execute(sql_command, kwargs)
         result = cursor.fetchone()
         if result is None:
-            return ["Invalid username or password"]
+            print("Invalid username or password")
         else:
             start_session(**kwargs)
-            return ["Login successful"]
+            print("Login successful")
     
     @staticmethod
     def insert(**kwargs):
@@ -41,11 +41,11 @@ class AttendeeModel:
         except:
             raise OSError("Failed to read sql script")
         try:
-            cursor.execute(sql_command.format(**kwargs))
+            cursor.execute(sql_command, kwargs)
             AttendeeModel.__db_connection.commit()
             return ["Attendee record created successfully"]
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
     @staticmethod
     def update(**kwargs):
@@ -55,12 +55,9 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(**kwargs))
-            AttendeeModel.__db_connection.commit()
-            return ["Attendee record updated successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command, kwargs)
+        AttendeeModel.__db_connection.commit()
+        return ["Attendee record updated successfully"]
         
     @staticmethod
     @admin_required
@@ -71,11 +68,8 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(email_address=email_address))
-            return cursor.fetchone()
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command, {"email_address": email_address})
+        return cursor.fetchall()
         
     @staticmethod
     @admin_required
@@ -86,10 +80,7 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(**kwargs))
-            return cursor.fetchone()
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command, kwargs)
+        print(f"attendee with email={kwargs['email_address']} information updated")
         
         
