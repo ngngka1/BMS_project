@@ -5,7 +5,7 @@ from utils.exceptions.TerminationException import TerminationException
 from utils.exceptions.ForbiddenException import ForbiddenException
 import re
 import argparse
-from settings import enable_admin_mode
+from settings import enable_admin_mode, enable_debug_mode
 
 def main(db_path='bms.db'):
     db_connection = sqlite3.connect(db_path)
@@ -37,10 +37,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--db', type=str, help='relative path to the database')
     parser.add_argument('--admin', action='store_true', help='indicate if it is admin mode is enabled')
+    parser.add_argument('--debug', action='store_true', help='indicate if debug mode is enabled')
     parser.add_argument('--auto-remove', action='store_true', help='indicate whether the database at specified path at -db will be removed when program terminates')
     parsed_args = parser.parse_args()
     if parsed_args.admin:
         enable_admin_mode()
+    if parsed_args.debug:
+        enable_debug_mode()
     if parsed_args.db:
         main(parsed_args.db)
     else:

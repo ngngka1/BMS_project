@@ -7,7 +7,7 @@ from controller.provide import ProvideController
 from controller.maintain import MaintainController
 from utils.exceptions.TerminationException import TerminationException
 import shlex
-
+from settings import check_debug_mode
 from view.aggregate import AggregateView
 
 class AggregateController:
@@ -30,7 +30,7 @@ class AggregateController:
         
     @staticmethod
     def redirect(input: str):
-        print()
+        print(input if check_debug_mode() else "")
         args = shlex.split(input)
         if not args: return
         table = args[0].lower() # might as well just make the commands case-insensitive

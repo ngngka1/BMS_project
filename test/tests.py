@@ -3,14 +3,29 @@ import os
 def setUp():
     global command
     # print(os.path.join(os.getcwd().replace(":", ""), "test.db"))
-    command = f'python main.py --admin --db="{"test.db"}" --auto-remove'
+    global db
+    db = "test.db"
+    command = f'python main.py --db="{db}" --debug'
+    
 def test(func):
-    tests.append(func)
-    return func
+    def wrapper():
+        x = func()
+        clean_up_after_each()
+        return x
+    tests.append(wrapper)
+    return wrapper
+
+def clean_up_after_each():
+    os.remove(db)
+    
 tests = [setUp]
 
-def run_with_input(input_data):
-    process = subprocess.run(command, input=input_data, text=True, capture_output=True, shell=True)
+def run_with_input(input_data, admin_mode=False):
+    global command
+    x = command
+    if admin_mode:
+        x += " --admin"
+    process = subprocess.run(x, input=input_data, text=True, capture_output=True, shell=True)
     if process.stdout:
         print(process.stdout)
     if process.stderr:
@@ -32,16 +47,21 @@ def test01():
         banquet list
         quit
     '''
+    run_with_input(input_data, admin_mode=True)
+    
+    input_data = '''
+        attendee register testuser@email.com 123 jo jo student 12345678 home none
+        banquet register 1\n\n\n
+        quit
+    '''
     run_with_input(input_data)
+    
+    input_data = '''
+        attendee getbyemail testuser@email.com
+        quit
+    '''
+    run_with_input(input_data, admin_mode=True)
     
 # @test
 def test02():
-    input_data = '''
-        meal create fish fishTest 200 NA
-        meal create chicken chickenTest 220 NA
-        meal create beef beefTest 240 NA
-        meal create fish fishTestTwo 2000 NA
-        banquet create dinner 2023-01-01 19:33:23 1000 1
-        banquet list
-    '''
-    run_with_input(input_data)
+    pass
