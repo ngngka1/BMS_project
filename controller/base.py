@@ -3,6 +3,19 @@ from utils.exceptions.InadequateArgumentsException import InadequateArgumentsExc
 class BaseController:
     
     @classmethod
+    def rollback(cls):
+        for model in cls.__subclasses__():
+            vars(model).get("model").db_connection.rollback()
+            
+    @classmethod
+    def commit(cls):
+        for model in cls.__subclasses__():
+            vars(model).get("model").db_connection.commit()
+            
+    # @classmethod
+    # def schedule_commit(cls)
+    
+    @classmethod
     def init(cls, db_connection: sqlite3.Connection):
         cls.model = vars(cls).get("model_class")(db_connection)
         view_class = vars(cls).get("view_class")

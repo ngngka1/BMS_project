@@ -34,6 +34,9 @@ class AttendeeController(BaseController):
             "password": to_string
         })
         AttendeeController.model.login(**kwargs)
+        
+    # @staticmethod
+    # def
 
     @staticmethod
     @authenticated_required

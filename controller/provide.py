@@ -10,8 +10,7 @@ class ProvideController(BaseController):
         bin_id = args[0]
         meal_nos = args[1]
         if (len(meal_nos) < 4):
-            print("input at least four different meals!")
-            return
+            raise sqlite3.IntegrityError("input at least four different meals!")
         for meal_no in meal_nos:
             ProvideController.model.insert(**{
                 "bin": bin_id,

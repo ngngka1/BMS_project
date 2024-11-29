@@ -3,6 +3,7 @@ from controller.base import BaseController
 from model.meal import MealModel
 from view.meal import MealView
 from utils.miscellaneous.type_cast import *
+from utils.auth.decorators import admin_required
 class MealController(BaseController):
     model_class = MealModel
     view_class = MealView
@@ -21,7 +22,8 @@ class MealController(BaseController):
         elif command == "update":
             MealController.update(*new_args)
        
-    @staticmethod     
+    @staticmethod
+    @admin_required
     def create(*args):
         kwargs = MealController.smart_input(*args, **{
             "type": to_string,
@@ -30,4 +32,16 @@ class MealController(BaseController):
             "special_cuisine": to_string,
         })
         MealController.model.insert(**kwargs)
+        
+    @staticmethod
+    @admin_required
+    def update(*args):
+        kwargs = MealController.smart_input(*args, **{
+            "meal_id": to_int,
+            "type": allow_null_wrapper(to_string),
+            "dish_name": allow_null_wrapper(to_string),
+            "price": allow_null_wrapper(to_int),
+            "special_cuisine": allow_null_wrapper(to_string),
+        })
+        MealController.model.update(**kwargs)
         

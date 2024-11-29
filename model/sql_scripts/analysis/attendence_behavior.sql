@@ -9,6 +9,6 @@ SELECT
     Attend.meal_choice,
     Attend.remarks
 FROM Attend
-JOIN Attendee ON Attend.email_address = Attendee.email_address
+JOIN Attendee ON Attend.account_id = Attendee.account_id
 JOIN Banquet ON Attend.bin = Banquet.bin
 ORDER BY Banquet.name, Attendee.last_name, Attendee.first_name;
