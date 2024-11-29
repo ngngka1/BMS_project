@@ -42,12 +42,9 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command, kwargs)
-            AttendeeModel.__db_connection.commit()
-            return ["Attendee record created successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e.args[0]]
+        cursor.execute(sql_command, kwargs)
+        AttendeeModel.__db_connection.commit()
+        print("Attendee record created successfully")
         
     @staticmethod
     def update(**kwargs):
