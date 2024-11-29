@@ -21,11 +21,8 @@ class MealModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command)
-            return cursor.fetchall()
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command)
+        return cursor.fetchall()
     
     @staticmethod
     def insert(**kwargs):
@@ -35,9 +32,5 @@ class MealModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
-            MealModel.__db_connection.commit()
-            return ["Meal record created successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+        cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
+        MealModel.__db_connection.commit()

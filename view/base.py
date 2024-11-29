@@ -48,5 +48,7 @@ class BaseView:
         self.admin_commands_desc = {}
         
     def display(self):
-        for row in self.results:
-            print(row)
+        if not self.results: print("No results found!")
+        else:
+            for row in self.results:
+                print(row)

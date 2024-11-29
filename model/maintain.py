@@ -14,6 +14,7 @@ class MaintainModel:
         cursor.execute(sql_command)
         MaintainModel.__db_connection.commit()
     
+    @staticmethod
     def insert(**kwargs):
         cursor = MaintainModel.__db_connection.cursor()
         try:
@@ -26,6 +27,6 @@ class MaintainModel:
             MaintainModel.__db_connection.commit()
             return ["Maintain record created successfully"]
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
         

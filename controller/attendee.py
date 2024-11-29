@@ -1,35 +1,29 @@
 import sqlite3
+from controller.base import BaseController
 from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
-from utils.exceptions.InadequateArgumentsException import InadequateArgumentsException
 from utils.miscellaneous.smart_input import smart_input
 from settings import get_session_data
-class AttendeeController:
-    __view: AttendeeView = None
-    __model: AttendeeModel = None
-    @staticmethod
-    def init(db_connection: sqlite3.Connection):
-        AttendeeController.__model = AttendeeModel(db_connection)
-        AttendeeController.__view = AttendeeView()
-        
+class AttendeeController(BaseController):
+    model_class = AttendeeModel
+    view_class = AttendeeView
+    
     @staticmethod
     def handle_input(*args):
+        if not args: return
         command = args[0].lower()
-        args = args[1:]
+        new_args = args[1:]
         if command == "help":
-            AttendeeController.__view.help()
+            AttendeeController.view.help()
         elif command == 'register':
-            AttendeeController.register(*args)
+            AttendeeController.register(*new_args)
         elif command == 'login':
-            AttendeeController.login(*args)
+            AttendeeController.login(*new_args)
         elif command == 'update':
-            AttendeeController.update(*args)
-        elif command == 'getByEmail':
-            AttendeeController.get_information_by_email(*args)
+            AttendeeController.update(*new_args)
+        elif command == 'getbyemail':
+            AttendeeController.get_information_by_email(*new_args)
         
-    def __init__(self):
-        AttendeeController.init()
-
     @staticmethod
     def login(*args):
         kwargs = smart_input(*args, **{
@@ -37,8 +31,8 @@ class AttendeeController:
             "password": None
         })
         
-        AttendeeController.__view.results = AttendeeController.__model.login(**kwargs)
-        AttendeeController.__view.display()
+        AttendeeController.view.results = AttendeeController.model.login(**kwargs)
+        AttendeeController.view.display()
 
     @staticmethod
     def update(*args):
@@ -52,8 +46,8 @@ class AttendeeController:
         })
         kwargs["email_address"] = get_session_data("email_address")
         kwargs["password"] = get_session_data("password")
-        AttendeeController.__view.results = AttendeeController.__model.update(**kwargs)
-        AttendeeController.__view.display()
+        AttendeeController.view.results = AttendeeController.model.update(**kwargs)
+        AttendeeController.view.display()
         
     @staticmethod
     def register(*args):
@@ -67,13 +61,13 @@ class AttendeeController:
             "address": None,
             "organization": None,
         })
-        AttendeeController.__view.results = AttendeeController.__model.insert(**kwargs)
-        AttendeeController.__view.display()
+        AttendeeController.view.results = AttendeeController.model.insert(**kwargs)
+        AttendeeController.view.display()
         
     @staticmethod
     def get_information_by_email(*args):
-        AttendeeController.__view.results = AttendeeController.__model.get_information_by_email(args[0])
-        AttendeeController.__view.display()
+        AttendeeController.view.results = AttendeeController.model.get_information_by_email(args[0])
+        AttendeeController.view.display()
         
     @staticmethod
     def update_information_by_email(*args):
@@ -86,5 +80,5 @@ class AttendeeController:
             "address": None,
             "organization": None,
         })
-        AttendeeController.__view.results = AttendeeController.__model.update_information_by_email(**kwargs)
-        AttendeeController.__view.display()
+        AttendeeController.view.results = AttendeeController.model.update_information_by_email(**kwargs)
+        AttendeeController.view.display()

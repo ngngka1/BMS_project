@@ -13,7 +13,7 @@ class AttendModel:
         cursor.execute(sql_command)
         AttendModel.__db_connection.commit()
     
-    def insert(*args):
+    def insert(**kwargs):
         try:
             with open("./model/sql_scripts/attend/insert.sql", "r") as f:
                 sql_command = f.read()
@@ -21,9 +21,9 @@ class AttendModel:
             raise OSError("Failed to read sql script")
         cursor = AttendModel.__db_connection.cursor()
         try:
-            cursor.execute(sql_command)
+            cursor.execute(sql_command.format(**kwargs))
             AttendModel.__db_connection.commit()
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
         

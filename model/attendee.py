@@ -45,7 +45,7 @@ class AttendeeModel:
             AttendeeModel.__db_connection.commit()
             return ["Attendee record created successfully"]
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
     @staticmethod
     def update(**kwargs):
@@ -60,7 +60,7 @@ class AttendeeModel:
             AttendeeModel.__db_connection.commit()
             return ["Attendee record updated successfully"]
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
     @staticmethod
     @admin_required
@@ -75,7 +75,7 @@ class AttendeeModel:
             cursor.execute(sql_command.format(email_address=email_address))
             return cursor.fetchone()
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
     @staticmethod
     @admin_required
@@ -90,6 +90,6 @@ class AttendeeModel:
             cursor.execute(sql_command.format(**kwargs))
             return cursor.fetchone()
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]
         
         

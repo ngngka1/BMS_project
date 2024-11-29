@@ -25,4 +25,4 @@ class StaffModel:
             StaffModel.__db_connection.commit()
             return ["Staff record created successfully"]
         except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e]
+            return ["Integerity error: " + e.args[0]]

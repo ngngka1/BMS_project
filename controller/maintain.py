@@ -1,18 +1,16 @@
 import sqlite3
 from model.maintain import MaintainModel
+from controller.base import BaseController
 from utils.miscellaneous.smart_input import smart_input
-class MaintainController:
-    __view = None
-    __model = None
-    @staticmethod
-    def init(db_connection: sqlite3.Connection):
-        MaintainController.__model = MaintainModel(db_connection)
+from utils.miscellaneous.type_cast import *
+class MaintainController(BaseController):
+    model_class = MaintainModel
         
     @staticmethod
     def create(*args):
-        kwargs = smart_input(*args, **{
-            "present": None,
-            "staff_no": None,
-            "bin": None,
-        })
-        MaintainController.__model.insert(**kwargs)
+        kwargs = {
+            "present": args[0],
+            "staff_no": int(args[1]),
+            "bin": int(args[2]),
+        }
+        MaintainController.model.insert(**kwargs)
