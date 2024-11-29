@@ -12,5 +12,6 @@ class MealView(BaseView):
             "Meal update <type> <dish_name> <price> <special_cuisine>": "update a Meal record"
         })
         self.add_argument_prompt({
-            "type": "can only be fish, chicken, beef or vegetarian"
+            "type": "can only be fish, chicken, beef or vegetarian",
+            "special_cuisine": "whether the dish is a special cuisine",
         })

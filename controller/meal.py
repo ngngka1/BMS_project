@@ -29,7 +29,7 @@ class MealController(BaseController):
             "type": to_string,
             "dish_name": to_string,
             "price": to_int,
-            "special_cuisine": to_string,
+            "special_cuisine": to_boolean,
         })
         MealController.model.insert(**kwargs)
         
@@ -41,7 +41,7 @@ class MealController(BaseController):
             "type": allow_null_wrapper(to_string),
             "dish_name": allow_null_wrapper(to_string),
             "price": allow_null_wrapper(to_int),
-            "special_cuisine": allow_null_wrapper(to_string),
+            "special_cuisine": allow_null_wrapper(to_boolean),
         })
         MealController.model.update(**kwargs)
         
