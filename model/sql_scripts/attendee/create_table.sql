@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS Attendee (
     type VARCHAR(7) NOT NULL CHECK(LOWER(type) IN ("staff", "student", "alumni", "guest")),
     phone_no CHAR(8) NOT NULL CHECK(LENGTH(phone_no) = 8 AND phone_no REGEXP '^[0-9]+$'),
     address VARCHAR(255) NOT NULL,
-    organization CHAR(6) NOT NULL CHECK(organization IN ("PolyU", "SPEED", "HKCC", "Others"))
+    organization VARCHAR(6) NOT NULL CHECK(LOWER(organization) IN ("polyu", "speed", "hkcc", "others"))
 )
