@@ -17,8 +17,10 @@ def main(db_path='bms.db'):
         while True:
             try:
                 AggregateController.redirect(input("\nEnter command:\n"))
+                AggregateController.commit()
             except sqlite3.IntegrityError as e:
                 print("Integrity error:", e.args[0])
+                AggregateController.rollback()
             except ForbiddenException as e:
                 print(e.args[0])
     except TerminationException:

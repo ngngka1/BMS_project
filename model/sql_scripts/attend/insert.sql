@@ -1,6 +1,6 @@
 INSERT INTO Attend VALUES (
     :bin,
-    :email_address,
+    :account_id,
     NULL,
     :drink_choice,
     :meal_choice,
