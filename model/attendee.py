@@ -1,5 +1,5 @@
 import sqlite3
-from utils.auth.decorators import admin_required
+from utils.auth.decorators import admin_required, authenticated_required
 from utils.exceptions.ForbiddenException import ForbiddenException
 from settings import start_session
 from utils.miscellaneous.smart_update_statement import update_statement_by_kwargs
@@ -63,7 +63,7 @@ class AttendeeModel:
         print("Attendee record updated successfully")
         
     @staticmethod
-    @admin_required
+    @authenticated_required
     def get_information_by_email(email_address):
         cursor = AttendeeModel.__db_connection.cursor()
         try:

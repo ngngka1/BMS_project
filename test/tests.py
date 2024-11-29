@@ -72,12 +72,13 @@ def test_update_attendee():
         attendee register testuser@email.com 123 jo jo student 12345678 home none
         attendee login testuser@email.com 123
         attendee update testuserJOJO@email.com je je \n\n\n\n\n
+        attendee info
         quit
     '''
     run_with_input(input_data)
     
-    input_data = '''
-        attendee getbyemail testuserJOJO@email.com
-        quit
-    '''
-    run_with_input(input_data, admin_mode=True)
+    # input_data = '''
+    #     attendee getbyemail testuserJOJO@email.com
+    #     quit
+    # '''
+    # run_with_input(input_data, admin_mode=True)

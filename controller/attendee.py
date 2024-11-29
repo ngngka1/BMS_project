@@ -3,7 +3,7 @@ from controller.base import BaseController
 from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
 from utils.miscellaneous.type_cast import *
-from settings import get_session_data
+from settings import get_session_data, start_session
 from utils.auth.decorators import admin_required, authenticated_required
 class AttendeeController(BaseController):
     model_class = AttendeeModel
@@ -20,6 +20,8 @@ class AttendeeController(BaseController):
             AttendeeController.register(*new_args)
         elif command == 'login':
             AttendeeController.login(*new_args)
+        elif command == "info":
+            AttendeeController.get_information()
         elif command == 'update':
             AttendeeController.update(*new_args)
         elif command == 'getbyemail':
@@ -49,6 +51,10 @@ class AttendeeController(BaseController):
         kwargs["old_email_address"] = get_session_data("email_address")
         kwargs["password"] = get_session_data("password")
         AttendeeController.model.update(**kwargs)
+        start_session(**{
+            "email_address": kwargs["email_address"] if kwargs["email_address"] else get_session_data("email_address"),
+            "password": kwargs["password"] if kwargs["password"] else get_session_data("password")
+        })
         
     @staticmethod
     def register(*args):
@@ -63,6 +69,11 @@ class AttendeeController(BaseController):
             "organization": to_string,
         })
         AttendeeController.model.insert(**kwargs)
+        
+    @staticmethod
+    @authenticated_required
+    def get_information():
+        AttendeeController.view.display(AttendeeController.model.get_information_by_email(get_session_data("email_address")))
         
     @staticmethod
     @admin_required
