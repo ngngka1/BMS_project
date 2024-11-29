@@ -25,6 +25,8 @@ def start_session(**kwargs):
     
 def get_session_data(key=None):
     global SESSION_DATA
+    if check_admin_mode() and not SESSION_DATA.get("account_id"):
+        raise ForbiddenException("Please login first! ()")
     if key: return SESSION_DATA.get(key)
     return {
         "account_id": SESSION_DATA.get("account_id"),

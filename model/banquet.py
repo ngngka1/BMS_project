@@ -17,6 +17,18 @@ class BanquetModel:
         # BanquetModel.db_connection.commit()
         
     @staticmethod
+    @admin_required
+    def get_attendees(bin_id: int):
+        cursor = BanquetModel.db_connection.cursor()
+        try:
+            with open("./model/sql_scripts/banquet/query_attendees.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise OSError("Failed to read sql script")
+        cursor.execute(sql_command, {"bin": bin_id})
+        return cursor.fetchall()
+        
+    @staticmethod
     @authenticated_required
     def get_one(bin_id: int):
         cursor = BanquetModel.db_connection.cursor()

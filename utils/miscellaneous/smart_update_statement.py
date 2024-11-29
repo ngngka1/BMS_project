@@ -9,5 +9,6 @@ def update_statement_by_kwargs(sql_statment, **kwargs):
     # )
     set_statement = ", ".join(x)
     sql_statment = sql_statment.format(set_statement=set_statement)
+    # print(sql_statment)
     return sql_statment
     

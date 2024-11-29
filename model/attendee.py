@@ -77,7 +77,7 @@ class AttendeeModel:
     def update_information_by_email(**kwargs):
         cursor = AttendeeModel.db_connection.cursor()
         try:
-            with open("./model/sql_scripts/attendee/update_by_email.sql", "r") as f:
+            with open("./model/sql_scripts/attendee/update.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")

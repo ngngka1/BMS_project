@@ -43,20 +43,20 @@ class AttendeeController(BaseController):
     def update(*args):
         kwargs = AttendeeController.smart_input(*args, **{
             "email_address": allow_null_wrapper(to_string),
+            "password": allow_null_wrapper(to_string),
             "first_name": allow_null_wrapper(to_string),
             "last_name": allow_null_wrapper(to_string),
-            "password": allow_null_wrapper(to_string),
             "type": allow_null_wrapper(to_string),
             "phone_no": allow_null_wrapper(to_string),
             "address": allow_null_wrapper(to_string),
             "organization": allow_null_wrapper(to_string),
         })
         kwargs["old_email_address"] = get_session_data("email_address")
-        kwargs["password"] = get_session_data("password")
+        kwargs["password"] = kwargs["password"] if kwargs["password"] else get_session_data("password")
         AttendeeController.model.update(**kwargs)
         start_session(**{
             "email_address": kwargs["email_address"] if kwargs["email_address"] else get_session_data("email_address"),
-            "password": kwargs["password"] if kwargs["password"] else get_session_data("password")
+            "password": kwargs["password"]
         })
         
     @staticmethod

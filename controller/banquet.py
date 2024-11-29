@@ -30,6 +30,16 @@ class BanquetController(BaseController):
             BanquetController.update(*new_args)
         elif command == "attend":
             BanquetController.update_attendence(*new_args)
+        elif command == "listattendees":
+            BanquetController.get_attendees(*new_args)
+            
+    @staticmethod
+    @admin_required
+    def get_attendees(*args):
+        kwargs = BanquetController.smart_input(*args, **{
+            "bin": to_int,
+        })
+        BanquetController.view.display(BanquetController.model.get_attendees(**kwargs))
             
     @staticmethod
     @authenticated_required
