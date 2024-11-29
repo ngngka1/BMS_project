@@ -25,8 +25,7 @@ class BanquetModel:
         except:
             raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
-        results = cursor.fetchall()
-        return results
+        return cursor.fetchall()
         
     @staticmethod
     @admin_required
@@ -37,11 +36,11 @@ class BanquetModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
+        cursor.execute(sql_command, kwargs)
         BanquetModel.__db_connection.commit()
+        print(f"Banquet record with bin {cursor.lastrowid} created successfully")
         if return_pk:
             return cursor.lastrowid
-        return ["Banquet record created successfully"]
         
     @staticmethod
     @admin_required
@@ -52,9 +51,5 @@ class BanquetModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
-            BanquetModel.__db_connection.commit()
-            return ["Banquet record updated successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e.args[0]]
+        cursor.execute(sql_command, kwargs) # **this part needs to format keyword arguments
+        BanquetModel.__db_connection.commit()

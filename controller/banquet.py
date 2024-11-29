@@ -4,6 +4,7 @@ from model.banquet import BanquetModel
 from controller.provide import ProvideController
 from controller.base import BaseController
 from controller.maintain import MaintainController
+from controller.attend import AttendController
 from utils.miscellaneous.smart_input import smart_input
 from utils.miscellaneous.type_cast import *
 from utils.auth.decorators import admin_required, authenticated_required
@@ -21,7 +22,7 @@ class BanquetController(BaseController):
         elif command == 'list':
             BanquetController.list_all()
         elif command == "register":
-            pass
+            AttendController.register(*new_args)
         elif command == "create":
             BanquetController.create(*new_args)
         elif command == "update":
@@ -29,8 +30,7 @@ class BanquetController(BaseController):
             
     @authenticated_required
     def list_all():
-        BanquetController.view.results = BanquetController.model.list_all()
-        BanquetController.view.display()
+        BanquetController.view.display(BanquetController.model.list_all())
         
     @admin_required
     def create(*args):

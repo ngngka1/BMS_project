@@ -6,10 +6,13 @@ def to_string(x):
 
 def to_string_allow_null(x):
     x = str(x)
-    return x if x else "NA"
+    return x if x else None
 
 def to_date_string(x):
-    datetime.strptime(x, '%Y/%m/%d')
+    temp = x.split()
+    if len(temp) != 2 and not re.match('^[0-9]{4}[-][0-9]{2}[-][0-9]{2} [0-9]{2}[:][0-9]{2}[:][0-9]{2}$', x):
+        raise ValueError("Invalid date format")
+    
     return x
 
 def to_int(x):

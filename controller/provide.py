@@ -10,8 +10,6 @@ class ProvideController(BaseController):
     def create(*args):
         bin_id = args[0]
         meal_nos = args[1]
-        print("bin_id:", bin_id)
-        print("meal_nos:", meal_nos)
         if (len(meal_nos) < 4):
             print("input at least four different meals!")
             return

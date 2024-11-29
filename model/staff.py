@@ -1,4 +1,5 @@
 import sqlite3
+from utils.auth.decorators import admin_required
 class StaffModel:
     __db_connection = None
     
@@ -12,17 +13,28 @@ class StaffModel:
             raise OSError("Failed to read sql script")
         cursor.execute(sql_command)
         StaffModel.__db_connection.commit()
+        
+    @staticmethod
+    @admin_required
+    def list_all():
+        cursor = StaffModel.__db_connection.cursor()
+        try:
+            with open("./model/sql_scripts/staff/query_all.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise OSError("Failed to read sql script")
+        cursor.execute(sql_command)
+        return cursor.fetchall()
     
-    def insert(*args):
+    @staticmethod
+    @admin_required
+    def insert(**kwargs):
         cursor = StaffModel.__db_connection.cursor()
         try:
             with open("./model/sql_scripts/staff/insert.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        try:
-            cursor.execute(sql_command.format(*args)) # **this part needs to format keyword arguments
-            StaffModel.__db_connection.commit()
-            return ["Staff record created successfully"]
-        except sqlite3.IntegrityError as e:
-            return ["Integerity error: " + e.args[0]]
+        cursor.execute(sql_command, kwargs)
+        StaffModel.__db_connection.commit()
+        print(f"Staff record with staff_no {cursor.lastrowid} created successfully")

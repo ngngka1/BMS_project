@@ -23,7 +23,7 @@ class MaintainModel:
         except:
             raise OSError("Failed to read sql script")
         try:
-            cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
+            cursor.execute(sql_command, kwargs) # **this part needs to format keyword arguments
             MaintainModel.__db_connection.commit()
             return ["Maintain record created successfully"]
         except sqlite3.IntegrityError as e:

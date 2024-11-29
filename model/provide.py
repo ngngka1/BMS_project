@@ -20,7 +20,7 @@ class ProvideModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command.format(**kwargs)) # **this part needs to format keyword arguments
+        cursor.execute(sql_command, kwargs) # **this part needs to format keyword arguments
         ProvideModel.__db_connection.commit()
     
     

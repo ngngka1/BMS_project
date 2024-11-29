@@ -16,8 +16,7 @@ class MealController(BaseController):
         if command == "help":
             MealController.view.help()
         elif command == "list":
-            MealController.view.results = MealController.model.list_all()
-            MealController.view.display()
+            MealController.view.display(MealController.model.list_all())
         elif command == "create":
             MealController.create(*new_args)
         elif command == "update":
@@ -41,4 +40,4 @@ class MealController(BaseController):
             "price": to_int,
             "special_cuisine": to_string,
         })
-        MealController.model.update(**args)
+        MealController.model.insert(**kwargs)
