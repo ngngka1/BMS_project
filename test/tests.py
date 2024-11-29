@@ -77,18 +77,23 @@ def test_update_attendee():
     '''
     run_with_input(input_data)
     
-# @test
+@test
 def test_attendence_report():
     input_data = '''
-        attendee register testuser@email.com 123 jo jo student 12345678 home polyu
-        attendee login testuser@email.com 123
-        attendee update testuserJOJO@email.com je je \n\n\n\n\n
-        attendee info
+        attendee register testuser1@email.com 123 jo1 jo student 12345678 home polyu
+        attendee register testuser2@email.com 123 jo2 jo student 12345678 home polyu
+        attendee register testuser3@email.com 123 jo3 jo student 12345678 home polyu
+        attendee register testuser4@email.com 123 jo4 jo student 12345678 home polyu
+        attendee register testuser5@email.com 123 jo5 jo student 12345678 home polyu
+        attendee register testuser6@email.com 123 jo6 jo student 12345678 home polyu
+        attendee register testuser7@email.com 123 jo7 jo student 12345678 home polyu
+        
+        
         quit
     '''
     run_with_input(input_data, admin_mode=True)
     
-@test
+# @test
 def test_inadequate_meal():
     input_data = '''
         meal create fish fishTest 200 NA
