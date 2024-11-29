@@ -12,7 +12,7 @@ def smart_input(*args, **kwargs) -> dict[str, any]:
             print(f"{key_name}: ")
             arg_prompt = BaseView.get_argument_prompt(key)
             if arg_prompt:
-                print(arg_prompt)
+                print(f"({arg_prompt})")
             arg = input()
             if not arg and cast_func:
                 raise InadequateArgumentsException(f"{key_name} can not be null!")
