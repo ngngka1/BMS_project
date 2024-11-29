@@ -3,7 +3,7 @@ from controller.base import BaseController
 from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
 from utils.miscellaneous.type_cast import *
-from settings import get_session_data, start_session
+from settings import get_session_data, start_session, stop_session
 from utils.auth.decorators import admin_required, authenticated_required
 class AttendeeController(BaseController):
     model_class = AttendeeModel
@@ -22,6 +22,8 @@ class AttendeeController(BaseController):
             AttendeeController.login(*new_args)
         elif command == "info":
             AttendeeController.get_information()
+        elif command == "logout":
+            AttendeeController.logout()
         elif command == 'update':
             AttendeeController.update(*new_args)
         elif command == 'getbyemail':
@@ -37,6 +39,11 @@ class AttendeeController(BaseController):
         
     # @staticmethod
     # def
+
+    @staticmethod
+    @authenticated_required
+    def logout():
+        stop_session()
 
     @staticmethod
     @authenticated_required

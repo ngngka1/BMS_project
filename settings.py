@@ -1,6 +1,6 @@
 from utils.exceptions.ForbiddenException import ForbiddenException
 import sqlite3
-SESSION_DATA = {
+DEFAULT_SESSION = {
     "debug_mode": False,
     'admin_mode': False,
     "account_id": None,
@@ -9,6 +9,8 @@ SESSION_DATA = {
     "password": None,
 }
 
+SESSION_DATA = DEFAULT_SESSION.copy()
+
 def start_db_connection(db_connection: sqlite3.Connection):
     global SESSION_DATA
     SESSION_DATA["db_connection"] = db_connection
@@ -16,6 +18,10 @@ def start_db_connection(db_connection: sqlite3.Connection):
 def get_db_connection() -> sqlite3.Connection:
     global SESSION_DATA
     return SESSION_DATA.get("db_connection")
+
+def stop_session():
+    global SESSION_DATA
+    SESSION_DATA = DEFAULT_SESSION.copy()
 
 def start_session(**kwargs):
     global SESSION_DATA

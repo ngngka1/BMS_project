@@ -17,6 +17,7 @@ class AttendeeModel:
         cursor.execute(sql_command)
         # AttendeeModel.db_connection.commit()
         
+        
     @staticmethod
     def login(**kwargs):
         cursor = AttendeeModel.db_connection.cursor()
