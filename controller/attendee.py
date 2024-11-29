@@ -3,6 +3,7 @@ from controller.base import BaseController
 from model.attendee import AttendeeModel
 from view.attendee import AttendeeView
 from utils.miscellaneous.smart_input import smart_input
+from utils.miscellaneous.type_cast import *
 from settings import get_session_data
 class AttendeeController(BaseController):
     model_class = AttendeeModel
@@ -27,47 +28,43 @@ class AttendeeController(BaseController):
     @staticmethod
     def login(*args):
         kwargs = smart_input(*args, **{
-            "email_address": None,
-            "password": None
+            "email_address": to_string,
+            "password": to_string
         })
-        
-        AttendeeController.view.results = AttendeeController.model.login(**kwargs)
-        AttendeeController.view.display()
+        AttendeeController.model.login(**kwargs)
 
     @staticmethod
     def update(*args):
         kwargs = smart_input(*args, **{
-            "first_name": None,
-            "last_name": None,
-            "type": None,
-            "phone_no": None,
-            "address": None,
-            "organization": None,
+            "first_name": to_string_allow_null,
+            "password": to_string_allow_null,
+            "last_name": to_string_allow_null,
+            "type": to_string_allow_null,
+            "phone_no": to_string_allow_null,
+            "address": to_string_allow_null,
+            "organization": to_string_allow_null,
         })
         kwargs["email_address"] = get_session_data("email_address")
         kwargs["password"] = get_session_data("password")
-        AttendeeController.view.results = AttendeeController.model.update(**kwargs)
-        AttendeeController.view.display()
+        AttendeeController.model.update(**kwargs)
         
     @staticmethod
     def register(*args):
         kwargs = smart_input(*args, **{
-            "email_address": None,
-            "password": None,
-            "first_name": None,
-            "last_name": None,
-            "type": None,
-            "phone_no": None,
-            "address": None,
-            "organization": None,
+            "email_address": to_string,
+            "password": to_string,
+            "first_name": to_string,
+            "last_name": to_string,
+            "type": to_string,
+            "phone_no": to_string,
+            "address": to_string,
+            "organization": to_string,
         })
-        AttendeeController.view.results = AttendeeController.model.insert(**kwargs)
-        AttendeeController.view.display()
+        AttendeeController.model.insert(**kwargs)
         
     @staticmethod
     def get_information_by_email(*args):
-        AttendeeController.view.results = AttendeeController.model.get_information_by_email(args[0])
-        AttendeeController.view.display()
+        AttendeeController.view.display(AttendeeController.model.get_information_by_email(args[0]))
         
     @staticmethod
     def update_information_by_email(*args):
@@ -80,5 +77,4 @@ class AttendeeController(BaseController):
             "address": None,
             "organization": None,
         })
-        AttendeeController.view.results = AttendeeController.model.update_information_by_email(**kwargs)
-        AttendeeController.view.display()
+        AttendeeController.model.update_information_by_email(**kwargs)

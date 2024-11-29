@@ -16,4 +16,5 @@ class AttendController(BaseController):
             "remarks": to_string_allow_null,
         })
         kwargs["email_address"] = get_session_data("email_address")
+        AttendController.model.insert(**kwargs)
         

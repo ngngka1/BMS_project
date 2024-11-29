@@ -6,6 +6,7 @@ from controller.staff import StaffController
 from controller.provide import ProvideController
 from controller.maintain import MaintainController
 from utils.exceptions.TerminationException import TerminationException
+import shlex
 
 from view.aggregate import AggregateView
 
@@ -30,7 +31,8 @@ class AggregateController:
     @staticmethod
     def redirect(input: str):
         print()
-        args = input.split()
+        args = shlex.split(input)
+        if not args: return
         table = args[0].lower() # might as well just make the commands case-insensitive
         new_args = args[1:] if len(args) > 1 else []
         if table == "quit":

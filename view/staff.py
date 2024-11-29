@@ -7,6 +7,7 @@ class StaffView(BaseView):
             "Staff help": "Show this help message",
         })
         self.set_admin_commands_description({
+            "Staff list": "list all the staff",
             "Staff create <first_name> <last_name> <department>": "create a Staff record",
             "Staff update <first_name> <last_name> <department>": "update a Staff record"
         })

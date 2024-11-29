@@ -1,4 +1,4 @@
-SELECT name, date_and_time, address, location, available
+SELECT *
 FROM Banquet
 ORDER BY bin
 DESC
