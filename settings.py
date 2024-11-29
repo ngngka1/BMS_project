@@ -3,6 +3,7 @@ import sqlite3
 SESSION_DATA = {
     "debug_mode": False,
     'admin_mode': False,
+    "account_id": None,
     "db_connection": None,
     "email_address": None,
     "password": None,
@@ -18,6 +19,7 @@ def get_db_connection() -> sqlite3.Connection:
 
 def start_session(**kwargs):
     global SESSION_DATA
+    SESSION_DATA["account_id"] = kwargs.get("account_id")
     SESSION_DATA["email_address"] = kwargs.get("email_address")
     SESSION_DATA["password"] = kwargs.get("password")
     
@@ -25,6 +27,7 @@ def get_session_data(key=None):
     global SESSION_DATA
     if key: return SESSION_DATA.get(key)
     return {
+        "account_id": SESSION_DATA.get("account_id"),
         "email_address": SESSION_DATA.get("email_address"),
         "password": SESSION_DATA.get("password"),
     }

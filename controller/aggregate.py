@@ -47,3 +47,4 @@ class AggregateController:
             StaffController.handle_input(*new_args)
         elif table == "meal":
             MealController.handle_input(*new_args)
+            

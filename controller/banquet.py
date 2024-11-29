@@ -54,7 +54,7 @@ class BanquetController(BaseController):
             "meal_choice": allow_null_wrapper(to_string),
             "remarks": allow_null_wrapper(to_string),
         })
-        kwargs["email_address"] = get_session_data("email_address")
+        kwargs["account_id"] = get_session_data("account_id")
         if BanquetController.check_available(**kwargs):
             AttendController.create(**kwargs)
         

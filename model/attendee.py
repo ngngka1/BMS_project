@@ -30,6 +30,7 @@ class AttendeeModel:
         if result is None:
             print("Invalid username or password")
         else:
+            kwargs["account_id"] = result["account_id"]
             start_session(**kwargs)
             print("Login successful")
     
