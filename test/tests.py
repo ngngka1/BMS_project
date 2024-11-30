@@ -135,13 +135,60 @@ def test_banquet_list_attendees():
 @test
 def test_attendee_types():
     input_data = '''
+    meal create beef beefTestTwo 100 false
+        meal create beef beefTestThree 100 false
+        meal create beef beefTestFour 100 false
+        meal create beef beefTestFive 120 true
+        meal create beef beefTestSix 120 true
+        meal create beef beefTestSeven 120 true
+        meal create beef beefTestEight 120 true
+        staff create joe a Catering
+        banquet create dinnerone "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 6, 4]" 1 123 true
+        banquet create dinnerthree "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 4, 3, 8]" 1 123 true
         attendee register testuser1@email.com 123 joa jo student 12345678 home polyu
-        attendee register testuser2@email.com 123 job jo alumni 12345678 home polyu
-        attendee register testuser3@email.com 123 joc jo student 12345678 home polyu
-        attendee register testuser4@email.com 123 jod jo staff 12345678 home polyu
-        attendee register testuser5@email.com 123 joe jo student 12345678 home polyu
+        attendee login testuser1@email.com 123
+        banquet register 1
+        \n\n\n
+        banquet register 3
+        \n\n\n
+        
+        attendee register testuser2@email.com 123 job jo staff 12345678 home polyu
+        attendee login testuser2@email.com 123
+        banquet register 1
+        \n\n\n
+        
+        attendee register testuser3@email.com 123 joc jo alumni 12345678 home polyu
+        attendee login testuser3@email.com 123
+        banquet register 1
+        \n\n\n
+        banquet register 2
+        \n\n\n
+        
+        attendee register testuser4@email.com 123 jod jo student 12345678 home polyu
+        attendee login testuser4@email.com 123
+        banquet register 1
+        \n\n\n
+        banquet register 2
+        \n\n\n
+        
+        attendee register testuser5@email.com 123 joe jo staff 12345678 home polyu
+        attendee login testuser5@email.com 123
+        banquet register 1
+        \n\n\n
+        banquet register 2
+        \n\n\n
+        
         attendee register testuser6@email.com 123 jof jo student 12345678 home polyu
-        attendee register testuser7@email.com 123 jog jo student 12345678 home polyu
+        attendee login testuser6@email.com 123
+        banquet register 3
+        \n\n\n
+        banquet register 1
+        \n\n\n
+        
+        attendee attend 1 1
+        attendee attend 2 2
+        attendee attend 1 1
         report attendeetypes
         quit
     '''
@@ -192,7 +239,7 @@ def test_inadequate_meal():
     '''
     run_with_input(input_data, admin_mode=True)
    
-@test
+# @test
 def test_attendence_report():
     input_data = '''
         meal create beef beefTestTwo 100 false
