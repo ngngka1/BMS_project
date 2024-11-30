@@ -45,5 +45,5 @@ class MealController(BaseController):
             "special_cuisine": allow_null_wrapper(to_boolean),
         })
         MealController.model.update(**kwargs)
-        print(f"meal {kwargs["meal_no"]} updated successfully")
+        print(f"meal {kwargs['meal_no']} updated successfully")
         
