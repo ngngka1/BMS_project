@@ -18,6 +18,7 @@ class AttendeeView(BaseView):
         self.add_argument_prompt({
             "first_name": "Only english name is accepted",
             "last_name": "Only english name is accepted",
+            "phone_no": "8-character long number",
             "type": "staff, student, alumni, guest",
             "organization": "polyu, speed, hkcc, others"
         })
