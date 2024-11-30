@@ -57,6 +57,9 @@ class BaseView:
                 formatted_row = {}
                 for key, value in dict(row).items():
                     if key not in ["available", "present", "special_cuisine"]: # ye im brute forcing at this point
+                        if key.endswith("_percentage"):
+                            formatted_row[key] = str(value) + "%"
+                            continue
                         formatted_row[key] = value
                     else:
                         formatted_row[key] = "Yes" if value else "No"

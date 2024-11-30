@@ -39,8 +39,8 @@ class AttendeeController(BaseController):
     @admin_required
     def update_attendence(*args):
         kwargs = AttendeeController.smart_input(*args, **{
-            "bin": to_int,
             "account_id": to_int,
+            "bin": to_int,
         })
         kwargs["present"] = True
         AttendController.update(**kwargs)

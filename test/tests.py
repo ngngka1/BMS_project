@@ -192,18 +192,25 @@ def test_inadequate_meal():
     '''
     run_with_input(input_data, admin_mode=True)
    
-# @test
+@test
 def test_attendence_report():
     input_data = '''
         meal create beef beefTestTwo 100 false
         meal create beef beefTestThree 100 false
         meal create beef beefTestFour 100 false
         meal create beef beefTestFive 120 true
+        meal create beef beefTestSix 120 true
+        meal create beef beefTestSeven 120 true
+        meal create beef beefTestEight 120 true
         staff create joe a Catering
-        banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dinnerone "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 6, 4]" 1 123 true
+        banquet create dinnerthree "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 4, 3, 8]" 1 123 true
         attendee register testuser1@email.com 123 joa jo student 12345678 home polyu
         attendee login testuser1@email.com 123
         banquet register 1
+        \n\n\n
+        banquet register 3
         \n\n\n
         
         attendee register testuser2@email.com 123 job jo student 12345678 home polyu
@@ -215,19 +222,27 @@ def test_attendence_report():
         attendee login testuser3@email.com 123
         banquet register 1
         \n\n\n
+        banquet register 2
+        \n\n\n
         
         attendee register testuser4@email.com 123 jod jo student 12345678 home polyu
         attendee login testuser4@email.com 123
         banquet register 1
+        \n\n\n
+        banquet register 2
         \n\n\n
         
         attendee register testuser5@email.com 123 joe jo student 12345678 home polyu
         attendee login testuser5@email.com 123
         banquet register 1
         \n\n\n
+        banquet register 2
+        \n\n\n
         
         attendee register testuser6@email.com 123 jof jo student 12345678 home polyu
         attendee login testuser6@email.com 123
+        banquet register 3
+        \n\n\n
         banquet register 1
         \n\n\n
         
@@ -242,10 +257,13 @@ def test_attendence_report():
     run_with_input(input_data, admin_mode=True)
     
     input_data = '''
+        
         Attendee attend 6 1
         Attendee attend 1 1
         Attendee attend 2 1
-        banquet listAttendees 1
+        Attendee attend 3 2
+        Attendee attend 4 2
+        Attendee attend 6 3
         report attendence
         quit
     '''

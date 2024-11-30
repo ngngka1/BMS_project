@@ -39,10 +39,10 @@ class ReportController(BaseController):
         if len(results) >= 1:
             print("attendence report:")
             print(f"\tBanquet with the high attendence percentage:")
-            ReportController.view.display([results[0]])
+            print(f"\t\t{results[0]['banquet_name']}: {results[0]['attendence_percentage']}")
             if len(results) > 1:
-                print(f"Banquet with the least attendence percentage:")
-                ReportController.view.display([results[-1]])
+                print(f"\tBanquet with the least attendence percentage:")
+                print(f"\t\t{results[-1]['banquet_name']}: {results[-1]['attendence_percentage']}")
     
     @staticmethod
     def popular_meals():
