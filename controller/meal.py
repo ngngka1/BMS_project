@@ -37,7 +37,7 @@ class MealController(BaseController):
     @admin_required
     def update(*args):
         kwargs = MealController.smart_input(*args, **{
-            "meal_id": to_int,
+            "meal_no": to_int,
             "type": allow_null_wrapper(to_string),
             "dish_name": allow_null_wrapper(to_string),
             "price": allow_null_wrapper(to_int),
