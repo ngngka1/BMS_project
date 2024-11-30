@@ -1,4 +1,4 @@
-SELECT s.first_name, s.last_name, COUNT(*) ,ROUND(COUNT(*) * 100.0 / (
+SELECT s.first_name, s.last_name, COUNT(*) AS maintained_banquet ,ROUND(COUNT(*) * 100.0 / (
     SELECT COUNT(*)
     FROM Staff s, Maintain m, Banquet b
     WHERE m.bin = b.bin
