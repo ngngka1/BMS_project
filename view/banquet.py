@@ -12,7 +12,6 @@ class BanquetView(BaseView):
         self.set_admin_commands_description({
             "Banquet create <name> <date_and_time> <address> <location> <meal_nos> <staff_no> <quota> <available>": "create a banquet record",
             "Banquet update <bin> <name> <date_and_time> <address> <location> <meal_nos> <staff_no> <quota> <available>": "update a banquet record",
-            "Banquet attendedby <bin> <account_id>": "confirm attendence of an attendee to a banquet",
             "Banquet listAttendees <bin>": "list all the attendees for a banquet with the bin"
         })
         self.add_argument_prompt({
