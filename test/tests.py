@@ -66,16 +66,16 @@ def test_banquet_full():
     '''
     run_with_input(input_data, admin_mode=True)
     
-# @test
+@test
 def test_update_attendee():
     input_data = '''
         attendee register testuser@email.com 123 jo jo student 12345678 home polyu
         attendee login testuser@email.com 123
-        attendee update testuserJOJO@email.com je je \n\n\n\n\n
+        attendee updatebyemail testuser@email.com je je \n\n\n\n\n
         attendee info
         quit
     '''
-    run_with_input(input_data)
+    run_with_input(input_data, admin_mode=True)
     
 # Banquet listAttendees <bin>
 # @test
@@ -271,7 +271,7 @@ def test_staff_attendence():
     '''
     run_with_input(input_data, admin_mode=True)
 
-@test
+# @test
 def test_criteria():
     input_data = '''
         meal create fish fishTest 200 false

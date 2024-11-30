@@ -28,7 +28,6 @@ CRITERIA = {
 def query_statement_by_kwargs(sql_statment, **kwargs):
     x = []
     criteria = kwargs.get("criteria")
-    print("Criteria:", criteria)
     if not criteria:
         return sql_statment.format(criteria="WHERE 1 = 1")
     for criterion in criteria:
