@@ -28,9 +28,17 @@ class ReportController(BaseController):
             print("Attendee types report:")
             if len(results) == 1:
                 print(f"\tAll attendees are: {results[0]['type']}")
+                print(f"\tattendence percentage: {results[0]['percentage']}")
             else:
                 print(f"\tMost of the attendees are: {results[0]['type']}")
                 print(f"\tLeast of the attendees are: {results[-1]['type']}")
+                print()
+                min_attendence = max_attendence = results[0]
+                for x in results:
+                    min_attendence = x if min_attendence["attendence_percentage"] > x["attendence_percentage"] else min_attendence
+                    max_attendence = x if max_attendence["attendence_percentage"] < x["attendence_percentage"] else max_attendence
+                print(f"\ttype of attendees that has the highest attendence: {max_attendence['type']}: {max_attendence['attendence_percentage']}%")
+                print(f"\ttype of attendees that has the lowest attendence: {min_attendence['type']}: {min_attendence['attendence_percentage']}%")
         
     @staticmethod
     def attendence():
