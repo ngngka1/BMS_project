@@ -67,7 +67,7 @@ class ReportController(BaseController):
         if len(results) >= 1:
             print("Staff attendance report:")
             print(f"\tstaff with the highest attendance is:")
-            print(f"\t\t{results[0]['first_name']}: {results[0]['attendance_percentage']}")
+            print(f"\t\t{results[0]['first_name']}: {results[0]['attendance_percentage']}%")
             if len(results) > 1:
                 print(f"\tstaff with the lowest attendance:")
-                print(f"\t\t{results[-1]['first_name']}: {results[-1]['attendance_percentage']}")
+                print(f"\t\t{results[-1]['first_name']}: {results[-1]['attendance_percentage']}%")
