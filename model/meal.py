@@ -1,5 +1,6 @@
 import sqlite3
 from utils.auth.decorators import admin_required
+from utils.miscellaneous.smart_sql_statement import update_statement_by_kwargs
 class MealModel:
     db_connection = None
     
@@ -48,5 +49,5 @@ class MealModel:
         except:
             raise OSError("Failed to read sql script")
         
-        cursor.execute(sql_command, kwargs) # **this part needs to format keyword arguments
+        cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs) # **this part needs to format keyword arguments
         # MealModel.db_connection.commit()

@@ -23,6 +23,8 @@ class StaffController(BaseController):
             StaffController.create(*new_args)
         elif command == "attend":
             StaffController.attend(*new_args)
+        elif command == "update":
+            StaffController.update(*new_args)
             
     @staticmethod
     @admin_required
@@ -49,3 +51,14 @@ class StaffController(BaseController):
         kwargs["present"] = True
         MaintainController.model.update(**kwargs)
         print("staff attendence updated successfully")
+        
+    @staticmethod
+    @admin_required
+    def update(*args):
+        kwargs = StaffController.smart_input(*args, **{
+            "staff_no": to_int,
+            "first_name": allow_null_wrapper(to_string),
+            "last_name": allow_null_wrapper(to_string),
+            "department": allow_null_wrapper(to_string),
+        })
+        StaffController.model.update(**kwargs)

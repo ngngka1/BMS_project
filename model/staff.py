@@ -1,5 +1,6 @@
 import sqlite3
 from utils.auth.decorators import admin_required
+from utils.miscellaneous.smart_sql_statement import update_statement_by_kwargs
 class StaffModel:
     db_connection = None
     
@@ -38,5 +39,18 @@ class StaffModel:
         cursor.execute(sql_command, kwargs)
         # StaffModel.db_connection.commit()
         print(f"Staff record with staff_no {cursor.lastrowid} created successfully")
+        
+    @staticmethod
+    @admin_required
+    def update(**kwargs):
+        cursor = StaffModel.db_connection.cursor()
+        try:
+            with open("./model/sql_scripts/staff/update.sql", "r") as f:
+                sql_command = f.read()
+        except:
+            raise OSError("Failed to read sql script")
+        cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs)
+        # StaffModel.db_connection.commit()
+        print(f"Staff record with staff_no {kwargs['staff_no']} updated successfully")
         
     

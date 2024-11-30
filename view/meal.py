@@ -9,7 +9,7 @@ class MealView(BaseView):
         })
         self.set_admin_commands_description({
             "Meal create <type> <dish_name> <price> <special_cuisine>": "create a Meal record",
-            "Meal update <type> <dish_name> <price> <special_cuisine>": "update a Meal record"
+            "Meal update <meal_no> <type> <dish_name> <price> <special_cuisine>": "update a Meal record"
         })
         self.add_argument_prompt({
             "type": "can only be fish, chicken, beef or vegetarian",
