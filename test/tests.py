@@ -133,6 +133,21 @@ def test_banquet_list_attendees():
     run_with_input(input_data, admin_mode=True)
 
 # @test
+def test_attendee_types():
+    input_data = '''
+        attendee register testuser1@email.com 123 joa jo student 12345678 home polyu
+        attendee register testuser2@email.com 123 job jo alumni 12345678 home polyu
+        attendee register testuser3@email.com 123 joc jo student 12345678 home polyu
+        attendee register testuser4@email.com 123 jod jo staff 12345678 home polyu
+        attendee register testuser5@email.com 123 joe jo student 12345678 home polyu
+        attendee register testuser6@email.com 123 jof jo student 12345678 home polyu
+        attendee register testuser7@email.com 123 jog jo student 12345678 home polyu
+        report attendeetypes
+        quit
+    '''
+    run_with_input(input_data, admin_mode=True)
+
+# @test
 def test_popular_meals_report():
     input_data = '''
         meal create fish fishTest 200 false
@@ -227,10 +242,10 @@ def test_attendence_report():
     run_with_input(input_data, admin_mode=True)
     
     input_data = '''
-        banquet attendedBy 6 1
+        banquet attendedBy 1 6
         banquet attendedBy 1 1
-        banquet attendedBy 2 1
-        
+        banquet attendedBy 1 2
+        banquet listAttendees 1
         report attendence
         quit
     '''

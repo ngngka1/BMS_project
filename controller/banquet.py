@@ -45,9 +45,10 @@ class BanquetController(BaseController):
     @admin_required
     def update_attendence(*args):
         kwargs = BanquetController.smart_input(*args, **{
-            "account_id": to_int,
             "bin": to_int,
+            "account_id": to_int,
         })
+        kwargs["present"] = True
         AttendController.update(**kwargs)
         print("attendence updated successfully")
         

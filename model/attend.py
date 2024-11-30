@@ -33,7 +33,6 @@ class AttendModel:
         except:
             raise OSError("Failed to read sql script")
         cursor = AttendModel.db_connection.cursor()
-        kwargs["present"] = True
         updating_fields = kwargs.copy()
         updating_fields.pop("bin")
         updating_fields.pop("account_id")
