@@ -132,7 +132,7 @@ def test_banquet_list_attendees():
     '''
     run_with_input(input_data, admin_mode=True)
 
-# @test
+@test
 def test_attendee_types():
     input_data = '''
         attendee register testuser1@email.com 123 joa jo student 12345678 home polyu
