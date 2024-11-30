@@ -30,6 +30,8 @@ class AttendeeController(BaseController):
             AttendeeController.update(*new_args)
         elif command == 'getbyemail':
             AttendeeController.get_information_by_email(*new_args)
+        elif command == 'updatebyemail':
+            AttendeeController.update_information_by_email(*new_args)
         elif command == "attend":
             AttendeeController.update_attendence(*new_args)
         

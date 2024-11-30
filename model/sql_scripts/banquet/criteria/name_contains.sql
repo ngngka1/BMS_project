@@ -1,1 +1,1 @@
-name LIKE ("%" + '{name}' + "%")
+name LIKE ("%{name}%")
