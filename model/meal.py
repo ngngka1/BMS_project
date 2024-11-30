@@ -38,6 +38,8 @@ class MealModel:
         # MealModel.db_connection.commit()
         print(f"Meal record with meal_no {cursor.lastrowid} created successfully")
         
+    @staticmethod
+    @admin_required
     def update(**kwargs):
         cursor = MealModel.db_connection.cursor()
         try:

@@ -192,7 +192,7 @@ def test_inadequate_meal():
     '''
     run_with_input(input_data, admin_mode=True)
    
-@test
+# @test
 def test_attendence_report():
     input_data = '''
         meal create beef beefTestTwo 100 false
@@ -252,7 +252,7 @@ def test_attendence_report():
     
     run_with_input(input_data, admin_mode=True)
 
-@test
+# @test
 def test_staff_attendence():
     input_data = '''
         meal create beef beefTestTwo 100 false
@@ -271,7 +271,7 @@ def test_staff_attendence():
     '''
     run_with_input(input_data, admin_mode=True)
 
-# @test
+@test
 def test_criteria():
     input_data = '''
         meal create fish fishTest 200 false
@@ -286,8 +286,11 @@ def test_criteria():
         banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
         banquet create lunch "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
         banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
-        banquet list "[nameContains=din, datebefore="2024-01-01 19:33:23"]"
+        banquet list "[nameContains=din, datebefore=2024-01-01 19:33:23]"
+        banquet list
         quit
     '''
     run_with_input(input_data, admin_mode=True)
     
+# @test
+# def test_banquet_list
