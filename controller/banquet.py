@@ -130,5 +130,5 @@ class BanquetController(BaseController):
         })
         BanquetController.model.update(**kwargs)
         print("banquet updated successfully:")
-        BanquetController.view.display(BanquetController.model.get_one(kwargs["bin"]))
+        BanquetController.view.display([BanquetController.model.get_one(kwargs["bin"])])
 

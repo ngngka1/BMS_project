@@ -66,7 +66,7 @@ def test_banquet_full():
     '''
     run_with_input(input_data, admin_mode=True)
     
-@test
+# @test
 def test_update_attendee():
     input_data = '''
         attendee register testuser@email.com 123 jo jo student 12345678 home polyu

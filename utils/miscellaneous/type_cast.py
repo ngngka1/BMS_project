@@ -24,7 +24,7 @@ def to_int(x):
 def to_list_from_string(x):
     if (not re.match(r"^[\[]{1}((.+)+([,]{1}.+)*)*[\]]{1}$", x)):
         raise ValueError("Not a string in list format (e.g. should be [1,2,3,4] etc.)")
-    return (x[1:-1]).replace(' ', '').split(',') # example: [1, 2, 5, 6]
+    return list(x.strip() for x in (x[1:-1]).split(','))
     
 
 def to_boolean(x):

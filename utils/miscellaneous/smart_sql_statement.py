@@ -35,6 +35,7 @@ def query_statement_by_kwargs(sql_statment, **kwargs):
         if len(criterion) != 2:
             ValueError("Invalid criteria")
         criterion, value = criterion
+        
         try:
             with open(CRITERIA.get(criterion.lower()).get("path"), 'r') as f:
                 key = CRITERIA.get(criterion.lower()).get("key")
