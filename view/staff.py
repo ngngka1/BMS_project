@@ -8,6 +8,7 @@ class StaffView(BaseView):
         })
         self.set_admin_commands_description({
             "Staff list": "list all the staff",
+            "Staff attend <staff_no> <bin>": "tick attendence of the staff on the banquet with bin",
             "Staff create <first_name> <last_name> <department>": "create a Staff record",
             "Staff update <first_name> <last_name> <department>": "update a Staff record"
         })

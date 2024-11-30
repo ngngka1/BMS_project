@@ -192,7 +192,7 @@ def test_inadequate_meal():
     '''
     run_with_input(input_data, admin_mode=True)
    
-# @test
+@test
 def test_attendence_report():
     input_data = '''
         meal create beef beefTestTwo 100 false
@@ -242,9 +242,9 @@ def test_attendence_report():
     run_with_input(input_data, admin_mode=True)
     
     input_data = '''
-        banquet attendedBy 1 6
-        banquet attendedBy 1 1
-        banquet attendedBy 1 2
+        Attendee attend 6 1
+        Attendee attend 1 1
+        Attendee attend 2 1
         banquet listAttendees 1
         report attendence
         quit
@@ -253,6 +253,25 @@ def test_attendence_report():
     run_with_input(input_data, admin_mode=True)
 
 @test
+def test_staff_attendence():
+    input_data = '''
+        meal create beef beefTestTwo 100 false
+        meal create beef beefTestThree 100 false
+        meal create beef beefTestFour 100 false
+        meal create beef beefTestFive 120 true
+        staff create joe a Catering
+        banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dinnerthree "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        
+        staff attend 1 1
+        
+        report staffattendence
+        quit
+    '''
+    run_with_input(input_data, admin_mode=True)
+
+# @test
 def test_criteria():
     input_data = '''
         meal create fish fishTest 200 false

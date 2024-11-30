@@ -28,8 +28,6 @@ class BanquetController(BaseController):
             BanquetController.create(*new_args)
         elif command == "update":
             BanquetController.update(*new_args)
-        elif command == "attendedby":
-            BanquetController.update_attendence(*new_args)
         elif command == "search":
             BanquetController.search(*new_args)
         elif command == "listattendees":
@@ -51,16 +49,7 @@ class BanquetController(BaseController):
         })
         BanquetController.view.display(BanquetController.model.get_attendees(kwargs["bin"]))
             
-    @staticmethod
-    @admin_required
-    def update_attendence(*args):
-        kwargs = BanquetController.smart_input(*args, **{
-            "bin": to_int,
-            "account_id": to_int,
-        })
-        kwargs["present"] = True
-        AttendController.update(**kwargs)
-        print("attendence updated successfully")
+    
         
     @staticmethod
     @authenticated_required
@@ -120,8 +109,6 @@ class BanquetController(BaseController):
                 BanquetController.model.update(**row)
             raise ForbiddenException("The banquet is already full")
         row["quota"] = row["quota"] - 1
-        print("row['quota']:", row["quota"])
-        print("type of row['quota']:", type(row["quota"]))
         if row["quota"] == 0:
             row["available"] = False
         BanquetController.model.update(**row)

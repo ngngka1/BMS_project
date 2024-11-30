@@ -2,6 +2,7 @@ import sqlite3
 from model.staff import StaffModel
 from view.staff import StaffView
 from controller.base import BaseController
+from controller.maintain import MaintainController
 from utils.miscellaneous.type_cast import *
 from utils.auth.decorators import admin_required
 
@@ -20,6 +21,8 @@ class StaffController(BaseController):
             StaffController.list_all()
         elif command == "create":
             StaffController.create(*new_args)
+        elif command == "attend":
+            StaffController.attend(*new_args)
             
     @staticmethod
     @admin_required
@@ -35,3 +38,14 @@ class StaffController(BaseController):
             "department": to_string,
         })
         StaffController.model.insert(**kwargs)
+        
+    @staticmethod
+    @admin_required
+    def attend(*args):
+        kwargs = StaffController.smart_input(*args, **{
+            "staff_no": to_int,
+            "bin": to_int,
+        })
+        kwargs["present"] = True
+        MaintainController.model.update(**kwargs)
+        print("staff attendence updated successfully")

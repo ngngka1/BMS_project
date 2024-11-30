@@ -1,4 +1,11 @@
-SELECT (COUNT(CASE WHEN m.present = 1 THEN 1 END) * 100.0 / COUNT(DISTINCT s.staff_no)) AS attendance_percentage
-FROM Staff s
-LEFT JOIN Maintain m ON s.staff_no = m.staff_no;
-ORDER BY attendance_percentage DESC
+SELECT s.first_name, s.last_name, ROUND(COUNT(*) * 100.0 / (
+    SELECT COUNT(*)
+    FROM Staff s, Maintain m
+    WHERE s.staff_no = m.staff_no
+    GROUP BY s.staff_no
+), 2) || '%' AS attendence_percentage
+FROM Staff s, Maintain m
+WHERE s.staff_no = m.staff_no
+AND m.present = 1
+GROUP BY s.staff_no
+ORDER BY attendence_percentage DESC;

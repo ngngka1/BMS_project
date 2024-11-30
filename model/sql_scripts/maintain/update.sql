@@ -1,4 +1,3 @@
-UPDATE TABLE Maintain SET 
+UPDATE Maintain SET 
     {set_statement}
-
-WHERE bin = :bin
+WHERE bin = :bin;

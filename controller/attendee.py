@@ -5,6 +5,8 @@ from view.attendee import AttendeeView
 from utils.miscellaneous.type_cast import *
 from settings import get_session_data, start_session, stop_session
 from utils.auth.decorators import admin_required, authenticated_required
+from controller.attend import AttendController
+
 class AttendeeController(BaseController):
     model_class = AttendeeModel
     view_class = AttendeeView
@@ -28,6 +30,19 @@ class AttendeeController(BaseController):
             AttendeeController.update(*new_args)
         elif command == 'getbyemail':
             AttendeeController.get_information_by_email(*new_args)
+        elif command == "attend":
+            AttendeeController.update_attendence(*new_args)
+        
+    @staticmethod
+    @admin_required
+    def update_attendence(*args):
+        kwargs = AttendeeController.smart_input(*args, **{
+            "bin": to_int,
+            "account_id": to_int,
+        })
+        kwargs["present"] = True
+        AttendController.update(**kwargs)
+        print("attendence updated successfully")
         
     @staticmethod
     def login(*args):

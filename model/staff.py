@@ -38,3 +38,5 @@ class StaffModel:
         cursor.execute(sql_command, kwargs)
         # StaffModel.db_connection.commit()
         print(f"Staff record with staff_no {cursor.lastrowid} created successfully")
+        
+    
