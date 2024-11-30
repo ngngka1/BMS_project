@@ -120,4 +120,5 @@ class AttendeeController(BaseController):
             "address": allow_null_wrapper(to_string),
             "organization": allow_null_wrapper(to_string),
         })
+        kwargs["old_email_address"] = get_session_data("email_address")
         AttendeeController.model.update_information_by_email(**kwargs)
