@@ -32,6 +32,7 @@ class MealController(BaseController):
             "special_cuisine": to_boolean,
         })
         MealController.model.insert(**kwargs)
+        print("meal created successfully")
         
     @staticmethod
     @admin_required
@@ -44,4 +45,5 @@ class MealController(BaseController):
             "special_cuisine": allow_null_wrapper(to_boolean),
         })
         MealController.model.update(**kwargs)
+        print(f"meal {kwargs["meal_no"]} updated successfully")
         
