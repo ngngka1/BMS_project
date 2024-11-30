@@ -28,7 +28,7 @@ class BanquetController(BaseController):
             BanquetController.create(*new_args)
         elif command == "update":
             BanquetController.update(*new_args)
-        elif command == "attend":
+        elif command == "attendedby":
             BanquetController.update_attendence(*new_args)
         elif command == "listattendees":
             BanquetController.get_attendees(*new_args)
@@ -39,16 +39,17 @@ class BanquetController(BaseController):
         kwargs = BanquetController.smart_input(*args, **{
             "bin": to_int,
         })
-        BanquetController.view.display(BanquetController.model.get_attendees(**kwargs))
+        BanquetController.view.display(BanquetController.model.get_attendees(kwargs["bin"]))
             
     @staticmethod
-    @authenticated_required
+    @admin_required
     def update_attendence(*args):
         kwargs = BanquetController.smart_input(*args, **{
+            "account_id": to_int,
             "bin": to_int,
         })
-        kwargs["email_address"] = get_session_data("email_address")
-        AttendController.update(kwargs)
+        AttendController.update(**kwargs)
+        print("attendence updated successfully")
         
     @staticmethod
     @authenticated_required
@@ -65,8 +66,10 @@ class BanquetController(BaseController):
             "remarks": allow_null_wrapper(to_string),
         })
         kwargs["account_id"] = get_session_data("account_id")
+        
         if BanquetController.check_available(**kwargs):
             AttendController.create(**kwargs)
+            print(f"you have registered banquet {kwargs['bin']} successfully")
         
     @staticmethod
     @admin_required
@@ -86,16 +89,26 @@ class BanquetController(BaseController):
         bin_id = BanquetController.model.insert(return_pk=True, **kwargs)
         ProvideController.create(bin_id, meal_nos)
         MaintainController.create(None, staff_no, bin_id)
+        print(f"Banquet created successfully:")
+        BanquetController.view.display([BanquetController.model.get_one(bin_id)])
+        
         
     @staticmethod
     @authenticated_required
     def check_available(**kwargs):
-        row = dict(BanquetController.model.get_one(kwargs["bin"]))
-        if not row or row["quota"] == 0:
+        row = BanquetController.model.get_one(kwargs["bin"])
+        if not row:
+            raise ForbiddenException("The banquet with the specified bin does not exist")
+        row = dict(row)
+        if row["quota"] == 0:
+            if row["available"]:
+                row["available"] = True
+                BanquetController.model.update(**row)
             raise ForbiddenException("The banquet is already full")
-        row["quota"] -= 1
-        if row["quota"] <= 0:
-            row["quota"] = 0
+        row["quota"] = row["quota"] - 1
+        print("row['quota']:", row["quota"])
+        print("type of row['quota']:", type(row["quota"]))
+        if row["quota"] == 0:
             row["available"] = False
         BanquetController.model.update(**row)
         return True
@@ -115,4 +128,6 @@ class BanquetController(BaseController):
             "available": allow_null_wrapper(to_boolean),
         })
         BanquetController.model.update(**kwargs)
+        print("banquet updated successfully:")
+        BanquetController.view.display(BanquetController.model.get_one(kwargs["bin"]))
 

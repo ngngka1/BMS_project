@@ -56,7 +56,7 @@ class BaseView:
             for row in self.results:
                 formatted_row = {}
                 for key, value in dict(row).items():
-                    if key not in ["available", "present"]: # ye im brute forcing at this point
+                    if key not in ["available", "present", "special_cuisine"]: # ye im brute forcing at this point
                         formatted_row[key] = value
                     else:
                         formatted_row[key] = "Yes" if value else "No"

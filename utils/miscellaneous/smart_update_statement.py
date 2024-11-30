@@ -2,8 +2,9 @@
 def update_statement_by_kwargs(sql_statment, **kwargs):
     x = []
     for key, value in kwargs.items():
-        if value:
-            x.append(f"{key} = :{key}")
+        if value is None:
+            continue
+        x.append(f"{key} = :{key}")
     # set_statement = ", ".join(
     #     f"{key} = :{key}" for key, value in kwargs.items()
     # )

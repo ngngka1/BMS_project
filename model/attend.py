@@ -22,7 +22,7 @@ class AttendModel:
         except:
             raise OSError("Failed to read sql script")
         cursor = AttendModel.db_connection.cursor()
-        cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs)
+        cursor.execute(sql_command, kwargs)
         # AttendModel.db_connection.commit()
         
     @staticmethod
@@ -33,4 +33,9 @@ class AttendModel:
         except:
             raise OSError("Failed to read sql script")
         cursor = AttendModel.db_connection.cursor()
-        cursor.execute(sql_command, kwargs)
+        kwargs["present"] = True
+        updating_fields = kwargs.copy()
+        updating_fields.pop("bin")
+        updating_fields.pop("account_id")
+        
+        cursor.execute(update_statement_by_kwargs(sql_command, **updating_fields), kwargs)

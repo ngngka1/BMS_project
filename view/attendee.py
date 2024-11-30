@@ -12,7 +12,7 @@ class AttendeeView(BaseView):
         })
         self.set_admin_commands_description({
             "Attendee getByEmail <email_address>": "get an attendee's information by their email address",
-            "Attendee updateByEmail <email_address> <first_name> <last_name> <type> <phone_no> <address> <organization>": "update an attendee's information by their email address"
+            "Attendee updateByEmail <email_address> <first_name> <last_name> <type> <phone_no> <address> <organization>": "update an attendee's information by their email address",
         })
         self.add_argument_prompt({
             "first_name": "Only english name is accepted",

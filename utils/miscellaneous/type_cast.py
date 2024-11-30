@@ -2,7 +2,7 @@ from datetime import datetime
 import re
 
 def allow_null_wrapper(func):
-    def wrapper(x):
+    def wrapper(x: str):
         if not x:
             return None
         return func(x)

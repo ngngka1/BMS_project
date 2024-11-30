@@ -1,3 +1,3 @@
-UPDATE Attend SET (
+UPDATE Attend SET 
     {set_statement}
-) WHERE bin = :bin
+WHERE bin = :bin

@@ -62,7 +62,6 @@ class BanquetModel:
         except:
             raise OSError("Failed to read sql script")
         cursor.execute(sql_command, kwargs)
-        # print(f"Banquet record with bin {cursor.lastrowid} created successfully")
         if return_pk:
             return cursor.lastrowid
         
@@ -75,6 +74,5 @@ class BanquetModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        
+        print("kwargs for update banquet:", kwargs)
         cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs) # **this part needs to format keyword arguments
-        # BanquetModel.db_connection.commit()

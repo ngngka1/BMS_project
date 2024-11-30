@@ -1,5 +1,6 @@
 import sqlite3
 from utils.exceptions.InadequateArgumentsException import InadequateArgumentsException
+from settings import check_debug_mode
 class BaseController:
     
     @classmethod
@@ -38,6 +39,7 @@ class BaseController:
                 if arg_prompt:
                     print(f"({arg_prompt})")
                 arg = input()
+                if check_debug_mode(): print(arg)
                 if not arg:
                     try:
                         cast_func(arg)
