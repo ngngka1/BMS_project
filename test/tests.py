@@ -240,7 +240,7 @@ def test_inadequate_meal():
     run_with_input(input_data, admin_mode=True)
    
 # @test
-def test_attendence_report():
+def test_attendance_report():
     input_data = '''
         meal create beef beefTestTwo 100 false
         meal create beef beefTestThree 100 false
@@ -311,27 +311,40 @@ def test_attendence_report():
         Attendee attend 3 2
         Attendee attend 4 2
         Attendee attend 6 3
-        report attendence
+        report attendance
         quit
     '''
     
     run_with_input(input_data, admin_mode=True)
 
-# @test
-def test_staff_attendence():
+@test
+def test_staff_attendance():
+    
     input_data = '''
         meal create beef beefTestTwo 100 false
         meal create beef beefTestThree 100 false
         meal create beef beefTestFour 100 false
         meal create beef beefTestFive 120 true
         staff create joe a Catering
+        staff create joe b security
+        staff create joe libe Catering
+        
+        banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 2 123 true
+        banquet create dinnerthree "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 3 123 true
+        banquet create dinnerthree "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 3 123 true
         banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
-        banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
-        banquet create dinnerthree "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dinnerfour "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dir "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dir2 "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
+        banquet create dirr3 "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 8]" 1 123 true
         
+        # banquet list \n
+        # staff list
         staff attend 1 1
+        staff attend 3 2
+        staff attend 3 3
         
-        report staffattendence
+        report staffattendance
         quit
     '''
     run_with_input(input_data, admin_mode=True)

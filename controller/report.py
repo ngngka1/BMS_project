@@ -11,10 +11,10 @@ class ReportController(BaseController):
         # new_args = args[1:]
         if command == "help":
             ReportController.view.help()
-        elif command == 'attendence':
-            ReportController.attendence()
-        elif command == 'staffattendence':
-            ReportController.staff_attendence()
+        elif command == 'attendance':
+            ReportController.attendance()
+        elif command == 'staffattendance':
+            ReportController.staff_attendance()
         elif command == 'popularmeals':
             ReportController.popular_meals()
         elif command == "attendeetypes":
@@ -28,29 +28,29 @@ class ReportController(BaseController):
             print("Attendee types report:")
             if len(results) == 1:
                 print(f"\tAll attendees are: {results[0]['type']}")
-                print(f"\tattendence percentage: {results[0]['percentage']}")
+                print(f"\tattendance percentage: {results[0]['percentage']}")
             else:
                 print(f"\tMost of the attendees are: {results[0]['type']}")
                 print(f"\tLeast of the attendees are: {results[-1]['type']}")
                 print()
-                min_attendence = max_attendence = results[0]
+                min_attendance = max_attendance = results[0]
                 for x in results:
-                    min_attendence = x if min_attendence["attendence_percentage"] > x["attendence_percentage"] else min_attendence
-                    max_attendence = x if max_attendence["attendence_percentage"] < x["attendence_percentage"] else max_attendence
-                print(f"\ttype of attendees that has the highest attendence: {max_attendence['type']}: {max_attendence['attendence_percentage']}%")
-                print(f"\ttype of attendees that has the lowest attendence: {min_attendence['type']}: {min_attendence['attendence_percentage']}%")
+                    min_attendance = x if min_attendance["attendance_percentage"] > x["attendance_percentage"] else min_attendance
+                    max_attendance = x if max_attendance["attendance_percentage"] < x["attendance_percentage"] else max_attendance
+                print(f"\ttype of attendees that has the highest attendance: {max_attendance['type']}: {max_attendance['attendance_percentage']}%")
+                print(f"\ttype of attendees that has the lowest attendance: {min_attendance['type']}: {min_attendance['attendance_percentage']}%")
         
     @staticmethod
-    def attendence():
-        results = ReportController.model.attendence()
+    def attendance():
+        results = ReportController.model.attendance()
         ReportController.view.display(results)
         if len(results) >= 1:
-            print("attendence report:")
-            print(f"\tBanquet with the high attendence percentage:")
-            print(f"\t\t{results[0]['banquet_name']}: {results[0]['attendence_percentage']}")
+            print("attendance report:")
+            print(f"\tBanquet with the high attendance percentage:")
+            print(f"\t\t{results[0]['banquet_name']}: {results[0]['attendance_percentage']}%")
             if len(results) > 1:
-                print(f"\tBanquet with the least attendence percentage:")
-                print(f"\t\t{results[-1]['banquet_name']}: {results[-1]['attendence_percentage']}")
+                print(f"\tBanquet with the least attendance percentage:")
+                print(f"\t\t{results[-1]['banquet_name']}: {results[-1]['attendance_percentage']}%")
     
     @staticmethod
     def popular_meals():
@@ -61,13 +61,13 @@ class ReportController(BaseController):
             print(f"\t{i+1}. {row['dish_name']}")
         
     @staticmethod
-    def staff_attendence():
-        results = ReportController.model.staff_attendence()
+    def staff_attendance():
+        results = ReportController.model.staff_attendance()
         ReportController.view.display(results)
         if len(results) >= 1:
-            print("Staff attendence report:")
-            print(f"\tstaff with the highest attendence is:")
-            print(f"\t\t{results[0]['first_name']}: {results[0]['attendence_percentage']}")
+            print("Staff attendance report:")
+            print(f"\tstaff with the highest attendance is:")
+            print(f"\t\t{results[0]['first_name']}: {results[0]['attendance_percentage']}")
             if len(results) > 1:
-                print(f"\tstaff with the lowest attendence:")
-                print(f"\t\t{results[-1]['first_name']}: {results[-1]['attendence_percentage']}")
+                print(f"\tstaff with the lowest attendance:")
+                print(f"\t\t{results[-1]['first_name']}: {results[-1]['attendance_percentage']}")

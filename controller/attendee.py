@@ -33,18 +33,18 @@ class AttendeeController(BaseController):
         elif command == 'updatebyemail':
             AttendeeController.update_information_by_email(*new_args)
         elif command == "attend":
-            AttendeeController.update_attendence(*new_args)
+            AttendeeController.update_attendance(*new_args)
         
     @staticmethod
     @admin_required
-    def update_attendence(*args):
+    def update_attendance(*args):
         kwargs = AttendeeController.smart_input(*args, **{
             "account_id": to_int,
             "bin": to_int,
         })
         kwargs["present"] = True
         AttendController.update(**kwargs)
-        print("attendence updated successfully")
+        print("attendance updated successfully")
         
     @staticmethod
     def login(*args):

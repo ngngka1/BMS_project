@@ -50,7 +50,7 @@ class StaffController(BaseController):
         })
         kwargs["present"] = True
         MaintainController.model.update(**kwargs)
-        print("staff attendence updated successfully")
+        print("staff attendance updated successfully")
         
     @staticmethod
     @admin_required

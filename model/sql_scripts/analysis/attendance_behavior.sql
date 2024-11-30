@@ -7,10 +7,10 @@ SELECT
         FROM Attend, Banquet
         WHERE Attend.bin = Banquet.bin
     )
-    , 2) AS attendence_percentage
+    , 2) AS attendance_percentage
 FROM Attend, Banquet
 WHERE Banquet.date_and_time < DATETIME('now')
 AND Attend.bin = Banquet.bin
 AND Attend.present = 1
 GROUP BY Banquet.bin
-ORDER BY attendence_percentage DESC;
+ORDER BY attendance_percentage DESC;

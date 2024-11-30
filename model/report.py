@@ -17,10 +17,10 @@ class ReportModel:
         return cursor.fetchall()
     
     @staticmethod
-    def attendence():
+    def attendance():
         cursor = ReportModel.db_connection.cursor()
         try:
-            with open("./model/sql_scripts/analysis/attendence_behavior.sql", "r") as f:
+            with open("./model/sql_scripts/analysis/attendance_behavior.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
@@ -39,10 +39,10 @@ class ReportModel:
         return cursor.fetchall()
     
     @staticmethod
-    def staff_attendence():
+    def staff_attendance():
         cursor = ReportModel.db_connection.cursor()
         try:
-            with open("./model/sql_scripts/analysis/staff_attendence.sql", "r") as f:
+            with open("./model/sql_scripts/analysis/staff_attendance.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")

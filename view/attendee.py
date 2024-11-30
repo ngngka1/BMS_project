@@ -11,7 +11,7 @@ class AttendeeView(BaseView):
             "Attendee update <email_address> <password> <first_name> <last_name> <type> <phone_no> <address> <organization>": "Update the information of the attendee (login required)",
         })
         self.set_admin_commands_description({
-            "Attendee attend <account_id> <bin>": "tick attendence of the attendee on the banquet with bin",
+            "Attendee attend <account_id> <bin>": "tick attendance of the attendee on the banquet with bin",
             "Attendee getByEmail <email_address>": "get an attendee's information by their email address",
             "Attendee updateByEmail <email_address> <first_name> <last_name> <type> <phone_no> <address> <organization>": "update an attendee's information by their email address",
         })
