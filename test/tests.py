@@ -285,7 +285,7 @@ def test_criteria():
         staff create joe c "Guest Services"
         banquet create dinner "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
         banquet create lunch "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
-        banquet create dinnertwo "2023-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
+        banquet create dinnertwo "2024-01-01 19:33:23" "hong kong" "hong kong" "[1, 2, 3, 4]" 1 1 true
         banquet list "[nameContains=din, datebefore=2024-01-01 19:33:23]"
         banquet list
         quit

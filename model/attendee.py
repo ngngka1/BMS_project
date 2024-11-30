@@ -82,7 +82,9 @@ class AttendeeModel:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(update_statement_by_kwargs(sql_command, **kwargs), kwargs)
+        updating_fields = kwargs.copy()
+        updating_fields.pop("old_email_address")
+        cursor.execute(update_statement_by_kwargs(sql_command, **updating_fields), kwargs)
         print(f"attendee with email={kwargs['email_address']} information updated")
         
         
