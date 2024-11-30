@@ -21,7 +21,7 @@ class BanquetController(BaseController):
         if command == "help":
             BanquetController.view.help()
         elif command == 'list':
-            BanquetController.list_all()
+            BanquetController.list_all(*new_args)
         elif command == "register":
             BanquetController.register(*new_args)
         elif command == "create":
@@ -30,8 +30,18 @@ class BanquetController(BaseController):
             BanquetController.update(*new_args)
         elif command == "attendedby":
             BanquetController.update_attendence(*new_args)
+        elif command == "search":
+            BanquetController.search(*new_args)
         elif command == "listattendees":
             BanquetController.get_attendees(*new_args)
+            
+    @staticmethod
+    @admin_required
+    def search(*args):
+        kwargs = BanquetController.smart_input(*args, **{
+            "criterion": to_string,
+        })
+        BanquetController.view.display(BanquetController.model.search(**kwargs))
             
     @staticmethod
     @admin_required
@@ -54,8 +64,11 @@ class BanquetController(BaseController):
         
     @staticmethod
     @authenticated_required
-    def list_all():
-        BanquetController.view.display(BanquetController.model.list_all())
+    def list_all(*args):
+        kwargs = BanquetController.smart_input(*args, **{
+            "criteria": allow_null_wrapper(to_list_from_string),
+        })
+        BanquetController.view.display(BanquetController.model.list_all(**kwargs))
         
     @staticmethod
     @authenticated_required

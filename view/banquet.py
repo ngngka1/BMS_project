@@ -6,6 +6,7 @@ class BanquetView(BaseView):
         self.set_commands_description({
             "Banquet help": "Show this help message",
             "Banquet list": "(login required) list all the available banquets",
+            "Banquet list <criteria>": "(login required) list all the available banquets with specified criterion",
             "Banquet register <bin> <drink_choice> <meal_choice> <remarks>": " (login required) register an available banquet"
         })
         self.set_admin_commands_description({
@@ -20,5 +21,6 @@ class BanquetView(BaseView):
             "bin": "The banquet identification number",
             "drink_choice": "remarks about drink choices/preference",
             "meal_choice": "remarks about meal choices/preference",
-            "remarks": "other remarks"
+            "remarks": "other remarks",
+            "criteria": "one or more of the 3 defined criteria (e.g. enter '[nameContains=din, dateBefore=2024-12-2 19:30:30, available]' to use all criteria, or press enter to skip)"
         })

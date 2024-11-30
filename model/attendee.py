@@ -2,7 +2,7 @@ import sqlite3
 from utils.auth.decorators import admin_required, authenticated_required
 from utils.exceptions.ForbiddenException import ForbiddenException
 from settings import start_session
-from utils.miscellaneous.smart_update_statement import update_statement_by_kwargs
+from utils.miscellaneous.smart_sql_statement import update_statement_by_kwargs
 class AttendeeModel:
     db_connection = None
     

@@ -1,0 +1,1 @@
+'{date_and_time}' < DATETIME('now')

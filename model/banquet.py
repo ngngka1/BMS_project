@@ -1,6 +1,6 @@
 import sqlite3
 from utils.auth.decorators import admin_required, authenticated_required
-from utils.miscellaneous.smart_update_statement import update_statement_by_kwargs
+from utils.miscellaneous.smart_sql_statement import update_statement_by_kwargs, query_statement_by_kwargs
 
 class BanquetModel:
     db_connection = None
@@ -42,14 +42,14 @@ class BanquetModel:
         
     @staticmethod
     @authenticated_required
-    def list_all():
+    def list_all(**kwargs):
         cursor = BanquetModel.db_connection.cursor()
         try:
             with open("./model/sql_scripts/banquet/query_all.sql", "r") as f:
                 sql_command = f.read()
         except:
             raise OSError("Failed to read sql script")
-        cursor.execute(sql_command)
+        cursor.execute(query_statement_by_kwargs(sql_command, **kwargs))
         return cursor.fetchall()
         
     @staticmethod

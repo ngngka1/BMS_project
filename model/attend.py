@@ -1,5 +1,5 @@
 import sqlite3
-from utils.miscellaneous.smart_update_statement import update_statement_by_kwargs
+from utils.miscellaneous.smart_sql_statement import update_statement_by_kwargs
 class AttendModel:
     db_connection = None
     

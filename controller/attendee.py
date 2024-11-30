@@ -44,6 +44,7 @@ class AttendeeController(BaseController):
     @authenticated_required
     def logout():
         stop_session()
+        print("logged out sucessfully")
 
     @staticmethod
     @authenticated_required
